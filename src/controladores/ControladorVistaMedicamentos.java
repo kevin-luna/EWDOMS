@@ -82,6 +82,7 @@ public class ControladorVistaMedicamentos implements ActionListener {
                 actualizarVista();
                 break;
             case "nuevo_medicamento":
+                menuRegistro.limpiar();
                 menuRegistro.setActualizar(false);
                 menuRegistro.setVisible(true);
                 break;

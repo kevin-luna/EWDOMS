@@ -74,18 +74,23 @@ public class ControladorVistaMedicos implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton boton = (JButton) e.getSource();
         switch (boton.getName()) {
-            case "todos_medicos" -> {
+            case "todos_medicos": {
                 actualizarVista();
+                break;
             }
-            case "nuevo_medico" -> {
+            case "nuevo_medico": {
+                menuRegistro.limpiar();
                 menuRegistro.setActualizar(false);
                 menuRegistro.setVisible(true);
+                break;
             }
-            case "editar_medico" -> {
+            case "editar_medico": {
                 editarMedico();
+                break;
             }
-            case "eliminar_medico" -> {
+            case "eliminar_medico": {
                 eliminarMedico();
+                break;
             }
 
         }

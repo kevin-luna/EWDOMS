@@ -87,46 +87,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         this.PanelRecetas = PanelRecetas;
     }
 
-    public JButton getBotonBuscarConsultas() {
-        return botonBuscarConsultas;
-    }
-
-    public void setBotonBuscarConsultas(JButton botonBuscarConsultas) {
-        this.botonBuscarConsultas = botonBuscarConsultas;
-    }
-
-    public JButton getBotonBuscarMedicamentos() {
-        return botonBuscarMedicamentos;
-    }
-
-    public void setBotonBuscarMedicamentos(JButton botonBuscarMedicamentos) {
-        this.botonBuscarMedicamentos = botonBuscarMedicamentos;
-    }
-
-    public JButton getBotonBuscarMedicos() {
-        return botonBuscarMedicos;
-    }
-
-    public void setBotonBuscarMedicos(JButton botonBuscarMedicos) {
-        this.botonBuscarMedicos = botonBuscarMedicos;
-    }
-
-    public JButton getBotonBuscarPacientes() {
-        return botonBuscarPacientes;
-    }
-
-    public void setBotonBuscarPacientes(JButton botonBuscarPacientes) {
-        this.botonBuscarPacientes = botonBuscarPacientes;
-    }
-
-    public JButton getBotonBuscarRecetas() {
-        return botonBuscarRecetas;
-    }
-
-    public void setBotonBuscarRecetas(JButton botonBuscarRecetas) {
-        this.botonBuscarRecetas = botonBuscarRecetas;
-    }
-
     public JButton getBotonEditar2() {
         return botonEditarReceta;
     }
@@ -287,85 +247,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         this.botonVerTodosPacientes = botonVerTodosPacientes;
     }
 
-    public JTextField getCampoBusquedaConsultas() {
-        return campoBusquedaConsultas;
-    }
-
-    public void setCampoBusquedaConsultas(JTextField campoBusquedaConsultas) {
-        this.campoBusquedaConsultas = campoBusquedaConsultas;
-    }
-
-    public JTextField getCampoBusquedaMedicamentos() {
-        return campoBusquedaMedicamentos;
-    }
-
-    public void setCampoBusquedaMedicamentos(JTextField campoBusquedaMedicamentos) {
-        this.campoBusquedaMedicamentos = campoBusquedaMedicamentos;
-    }
-
-    public JTextField getCampoBusquedaMedicos() {
-        return campoBusquedaMedicos;
-    }
-
-    public void setCampoBusquedaMedicos(JTextField campoBusquedaMedicos) {
-        this.campoBusquedaMedicos = campoBusquedaMedicos;
-    }
-
-    public JTextField getCampoBusquedaPacientes() {
-        return campoBusquedaPacientes;
-    }
-
-    public void setCampoBusquedaPacientes(JTextField campoBusquedaPacientes) {
-        this.campoBusquedaPacientes = campoBusquedaPacientes;
-    }
-
-    public JTextField getCampoBusquedaRecetas() {
-        return campoBusquedaRecetas;
-    }
-
-    public void setCampoBusquedaRecetas(JTextField campoBusquedaRecetas) {
-        this.campoBusquedaRecetas = campoBusquedaRecetas;
-    }
-
-    public JLabel getEtiquetaNombreConsultas() {
-        return etiquetaNombreConsultas;
-    }
-
-    public void setEtiquetaNombreConsultas(JLabel etiquetaNombreConsultas) {
-        this.etiquetaNombreConsultas = etiquetaNombreConsultas;
-    }
-
-    public JLabel getEtiquetaNombreMedicamentos() {
-        return etiquetaNombreMedicamentos;
-    }
-
-    public void setEtiquetaNombreMedicamentos(JLabel etiquetaNombreMedicamentos) {
-        this.etiquetaNombreMedicamentos = etiquetaNombreMedicamentos;
-    }
-
-    public JLabel getEtiquetaNombreMedico() {
-        return etiquetaNombreMedico;
-    }
-
-    public void setEtiquetaNombreMedico(JLabel etiquetaNombreMedico) {
-        this.etiquetaNombreMedico = etiquetaNombreMedico;
-    }
-
-    public JLabel getEtiquetaNombrePacientes() {
-        return etiquetaNombrePacientes;
-    }
-
-    public void setEtiquetaNombrePacientes(JLabel etiquetaNombrePacientes) {
-        this.etiquetaNombrePacientes = etiquetaNombrePacientes;
-    }
-
-    public JLabel getEtiquetaNombreRecetas() {
-        return etiquetaNombreRecetas;
-    }
-
-    public void setEtiquetaNombreRecetas(JLabel etiquetaNombreRecetas) {
-        this.etiquetaNombreRecetas = etiquetaNombreRecetas;
-    }
 
     public JLabel getEtiquetaTitulo() {
         return etiquetaTitulo;
@@ -601,7 +482,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         Medicamentos = new javax.swing.JTabbedPane();
         panelPacientes = new javax.swing.JPanel();
@@ -613,9 +493,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         botonEditarPaciente = new javax.swing.JButton();
         botonEliminarPaciente = new javax.swing.JButton();
         panelNortePacientes = new javax.swing.JPanel();
-        etiquetaNombrePacientes = new javax.swing.JLabel();
-        campoBusquedaPacientes = new javax.swing.JTextField();
-        botonBuscarPacientes = new javax.swing.JButton();
         panelMedicos = new javax.swing.JPanel();
         scrollMedicos = new javax.swing.JScrollPane();
         tablaMedicos = new javax.swing.JTable();
@@ -625,9 +502,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         botonEditarMedico = new javax.swing.JButton();
         botonEliminarMedico = new javax.swing.JButton();
         panelNorteMedicos = new javax.swing.JPanel();
-        etiquetaNombreMedico = new javax.swing.JLabel();
-        campoBusquedaMedicos = new javax.swing.JTextField();
-        botonBuscarMedicos = new javax.swing.JButton();
         panelConsultas = new javax.swing.JPanel();
         scrollConsultas = new javax.swing.JScrollPane();
         tablaConsultas = new javax.swing.JTable();
@@ -637,9 +511,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         botonEditarConsulta = new javax.swing.JButton();
         botonEliminarConsulta = new javax.swing.JButton();
         panelNorteConsultas = new javax.swing.JPanel();
-        etiquetaNombreConsultas = new javax.swing.JLabel();
-        campoBusquedaConsultas = new javax.swing.JTextField();
-        botonBuscarConsultas = new javax.swing.JButton();
         PanelRecetas = new javax.swing.JPanel();
         scrollRecetas = new javax.swing.JScrollPane();
         tablaRecetas = new javax.swing.JTable();
@@ -649,9 +520,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         botonEditarReceta = new javax.swing.JButton();
         botonEliminarReceta = new javax.swing.JButton();
         panelNorteRecetas = new javax.swing.JPanel();
-        etiquetaNombreRecetas = new javax.swing.JLabel();
-        campoBusquedaRecetas = new javax.swing.JTextField();
-        botonBuscarRecetas = new javax.swing.JButton();
         panelMedicamentos = new javax.swing.JPanel();
         scrollMedicamentos = new javax.swing.JScrollPane();
         tablaMedicamentos = new javax.swing.JTable();
@@ -661,9 +529,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         botonEditarMedicamento = new javax.swing.JButton();
         botonEliminarMedicamento = new javax.swing.JButton();
         panelNorteMedicamentos = new javax.swing.JPanel();
-        etiquetaNombreMedicamentos = new javax.swing.JLabel();
-        campoBusquedaMedicamentos = new javax.swing.JTextField();
-        botonBuscarMedicamentos = new javax.swing.JButton();
         panelTitulo = new javax.swing.JPanel();
         etiquetaTitulo = new javax.swing.JLabel();
         panelPie = new javax.swing.JPanel();
@@ -731,24 +596,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         panelPacientes.add(panelSurPacientes, java.awt.BorderLayout.PAGE_END);
 
         panelNortePacientes.setLayout(new java.awt.GridBagLayout());
-
-        etiquetaNombrePacientes.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        etiquetaNombrePacientes.setText("Nombre:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 0.15;
-        panelNortePacientes.add(etiquetaNombrePacientes, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.7;
-        panelNortePacientes.add(campoBusquedaPacientes, gridBagConstraints);
-
-        botonBuscarPacientes.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        botonBuscarPacientes.setText("Buscar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 0.15;
-        panelNortePacientes.add(botonBuscarPacientes, gridBagConstraints);
-
         panelPacientes.add(panelNortePacientes, java.awt.BorderLayout.PAGE_START);
 
         Medicamentos.addTab("Pacientes", panelPacientes);
@@ -809,24 +656,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         panelMedicos.add(panelSurMedicos, java.awt.BorderLayout.PAGE_END);
 
         panelNorteMedicos.setLayout(new java.awt.GridBagLayout());
-
-        etiquetaNombreMedico.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        etiquetaNombreMedico.setText("Nombre:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 0.15;
-        panelNorteMedicos.add(etiquetaNombreMedico, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.7;
-        panelNorteMedicos.add(campoBusquedaMedicos, gridBagConstraints);
-
-        botonBuscarMedicos.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        botonBuscarMedicos.setText("Buscar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 0.15;
-        panelNorteMedicos.add(botonBuscarMedicos, gridBagConstraints);
-
         panelMedicos.add(panelNorteMedicos, java.awt.BorderLayout.PAGE_START);
 
         Medicamentos.addTab("Médicos", panelMedicos);
@@ -887,24 +716,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         panelConsultas.add(panelSurConsultas, java.awt.BorderLayout.PAGE_END);
 
         panelNorteConsultas.setLayout(new java.awt.GridBagLayout());
-
-        etiquetaNombreConsultas.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        etiquetaNombreConsultas.setText("Nombre:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 0.15;
-        panelNorteConsultas.add(etiquetaNombreConsultas, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.7;
-        panelNorteConsultas.add(campoBusquedaConsultas, gridBagConstraints);
-
-        botonBuscarConsultas.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        botonBuscarConsultas.setText("Buscar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 0.15;
-        panelNorteConsultas.add(botonBuscarConsultas, gridBagConstraints);
-
         panelConsultas.add(panelNorteConsultas, java.awt.BorderLayout.PAGE_START);
 
         Medicamentos.addTab("Consultas", panelConsultas);
@@ -965,24 +776,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         PanelRecetas.add(panelSurRecetas, java.awt.BorderLayout.PAGE_END);
 
         panelNorteRecetas.setLayout(new java.awt.GridBagLayout());
-
-        etiquetaNombreRecetas.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        etiquetaNombreRecetas.setText("Nombre:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 0.15;
-        panelNorteRecetas.add(etiquetaNombreRecetas, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.7;
-        panelNorteRecetas.add(campoBusquedaRecetas, gridBagConstraints);
-
-        botonBuscarRecetas.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        botonBuscarRecetas.setText("Buscar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 0.15;
-        panelNorteRecetas.add(botonBuscarRecetas, gridBagConstraints);
-
         PanelRecetas.add(panelNorteRecetas, java.awt.BorderLayout.PAGE_START);
 
         Medicamentos.addTab("Recetas", PanelRecetas);
@@ -1038,24 +831,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         panelMedicamentos.add(panelSurMedicamentos, java.awt.BorderLayout.PAGE_END);
 
         panelNorteMedicamentos.setLayout(new java.awt.GridBagLayout());
-
-        etiquetaNombreMedicamentos.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        etiquetaNombreMedicamentos.setText("Nombre:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 0.15;
-        panelNorteMedicamentos.add(etiquetaNombreMedicamentos, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.7;
-        panelNorteMedicamentos.add(campoBusquedaMedicamentos, gridBagConstraints);
-
-        botonBuscarMedicamentos.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        botonBuscarMedicamentos.setText("Buscar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 0.15;
-        panelNorteMedicamentos.add(botonBuscarMedicamentos, gridBagConstraints);
-
         panelMedicamentos.add(panelNorteMedicamentos, java.awt.BorderLayout.PAGE_START);
 
         Medicamentos.addTab("Medicamentos", panelMedicamentos);
@@ -1138,11 +913,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane Medicamentos;
     private javax.swing.JPanel PanelRecetas;
-    private javax.swing.JButton botonBuscarConsultas;
-    private javax.swing.JButton botonBuscarMedicamentos;
-    private javax.swing.JButton botonBuscarMedicos;
-    private javax.swing.JButton botonBuscarPacientes;
-    private javax.swing.JButton botonBuscarRecetas;
     private javax.swing.JButton botonEditarConsulta;
     private javax.swing.JButton botonEditarMedicamento;
     private javax.swing.JButton botonEditarMedico;
@@ -1163,16 +933,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
     private javax.swing.JButton botonVerTodosMedicamentos;
     private javax.swing.JButton botonVerTodosMedicos;
     private javax.swing.JButton botonVerTodosPacientes;
-    private javax.swing.JTextField campoBusquedaConsultas;
-    private javax.swing.JTextField campoBusquedaMedicamentos;
-    private javax.swing.JTextField campoBusquedaMedicos;
-    private javax.swing.JTextField campoBusquedaPacientes;
-    private javax.swing.JTextField campoBusquedaRecetas;
-    private javax.swing.JLabel etiquetaNombreConsultas;
-    private javax.swing.JLabel etiquetaNombreMedicamentos;
-    private javax.swing.JLabel etiquetaNombreMedico;
-    private javax.swing.JLabel etiquetaNombrePacientes;
-    private javax.swing.JLabel etiquetaNombreRecetas;
     private javax.swing.JLabel etiquetaTitulo;
     private javax.swing.JLabel etiquetaVersion;
     private javax.swing.JPanel panelConsultas;

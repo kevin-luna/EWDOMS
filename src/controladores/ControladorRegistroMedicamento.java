@@ -32,7 +32,7 @@ public class ControladorRegistroMedicamento implements ActionListener{
         System.out.println("Boton presionado");
         JButton boton = (JButton)e.getSource();
         switch(boton.getName()){
-            case "guardar" -> {
+            case "guardar" :
                 if(menuRegistro.tieneCamposVacios()){
                     JOptionPane.showMessageDialog(menuRegistro, "No pueden quedar campos vacíos", "Atención", JOptionPane.WARNING_MESSAGE);
                     break;
@@ -56,8 +56,10 @@ public class ControladorRegistroMedicamento implements ActionListener{
                 }else{
                     JOptionPane.showMessageDialog(menuRegistro, "No se pudo "+accion2+" el medicamento.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
                 }
-            }
-            case "cancelar" -> menuRegistro.dispose();
+                break;
+            case "cancelar":
+                menuRegistro.dispose();
+                break;
         }
     }
     

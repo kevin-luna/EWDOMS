@@ -80,6 +80,7 @@ public class ControladorVistaConsultas implements ActionListener {
                 actualizarVista();
                 break;
             case "nueva_consulta":
+                menuRegistro.limpiar();
                 menuRegistro.setActualizar(false);
                 menuRegistro.setVisible(true);
                 break;

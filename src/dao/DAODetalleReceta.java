@@ -38,6 +38,7 @@ public class DAODetalleReceta {
                             coincidencias.getLong("id_medicamento"),
                             coincidencias.getString("nombre")
                     );
+                    lista.add(medicamento);
                 }
                 return lista;
             } catch (SQLException ex) {

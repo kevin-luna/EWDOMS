@@ -6,22 +6,20 @@ package vistas;
 
 import controladores.ControladorRegistroReceta;
 import dao.DAOConsultaMedica;
+import dao.DAODetalleReceta;
 import dao.DAOMedicamento;
 import java.util.ArrayList;
-import javax.accessibility.AccessibleContext;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import modelos.ConsultaMedica;
+import modelos.DetalleReceta;
 import modelos.Medicamento;
+import modelos.Receta;
 
 /**
  *
@@ -29,13 +27,20 @@ import modelos.Medicamento;
  */
 public class FormReceta extends javax.swing.JFrame {
     
+    boolean actualizar;
+    Receta receta;
+    DetalleReceta detalleReceta;
     ConsultaMedica consulta;
     Medicamento medicamento;
     DAOConsultaMedica daoConsultaMedica;
     DAOMedicamento dAOMedicamento;
+    DAODetalleReceta daoDetalleReceta;
     ArrayList<ConsultaMedica> listaConsultas;
     ArrayList<Medicamento> listaMedicamentos;
+    ArrayList<Medicamento> listaMedicamentosReceta;
+    ArrayList<DetalleReceta> listaDetalleReceta;
     DefaultTableModel modeloListaMedicamentos;
+    
     /**
      * Creates new form RegistroReceta
      */
@@ -44,7 +49,7 @@ public class FormReceta extends javax.swing.JFrame {
         modeloListaMedicamentos = (DefaultTableModel)tablaMedicamentos.getModel();
         daoConsultaMedica = new DAOConsultaMedica();
         dAOMedicamento = new DAOMedicamento();
-        
+        daoDetalleReceta = new DAODetalleReceta();
         listaMedicamentos = dAOMedicamento.consultar();
         listaConsultas = daoConsultaMedica.consultar();
         
@@ -53,17 +58,51 @@ public class FormReceta extends javax.swing.JFrame {
         }
         
         for(ConsultaMedica c: listaConsultas){
-            comboConsulta.addItem(c.getIdPaciente()+"::"+c.getFecha());
+            comboConsulta.addItem(Long.toString(c.getId()));
+        }
+    }
+    
+    public void cargarReceta(Receta receta){
+        this.receta = receta;
+        txtaDiagnostico.setText(receta.getDiagnostico());
+        txtaSintomas.setText(receta.getSintomas());
+        txtaRecomendaciones.setText(receta.getRecomendaciones());
+    }
+    
+    public void cargarMedicamentos(ArrayList<Medicamento> medicamentos){
+        modeloListaMedicamentos.setRowCount(0);
+        for(Medicamento m : medicamentos){
+            modeloListaMedicamentos.addRow(new Object[]{m.getNombre()});
         }
     }
 
+    public ArrayList<Medicamento> getListaMedicamentosReceta() {
+        return listaMedicamentosReceta;
+    }
+    
+    
+    
+    public Receta obtenerReceta(){
+        return receta = new Receta(obtenerIdConsulta(),obtenerDiagnostico(),obtenerSintomas(),obtenerRecomendaciones());
+    }
+
+    public boolean getActualizar() {
+        return actualizar;
+    }
+
+    public void setActualizar(boolean actualizar) {
+        this.actualizar = actualizar;
+    }
+    
+    
+
     // Métodos para obtener el contenido
     public String obtenerDiagnostico() {
-        return txaDiagnostico.getText();
+        return txtaDiagnostico.getText();
     }
 
     public String obtenerSintomas() {
-        return txaSintomas.getText();
+        return txtaSintomas.getText();
     }
 
     public Long obtenerIdConsulta() {
@@ -81,11 +120,11 @@ public class FormReceta extends javax.swing.JFrame {
 
 // Métodos para limpiar el contenido
     public void limpiarDiagnostico() {
-        txaDiagnostico.setText("");
+        txtaDiagnostico.setText("");
     }
 
     public void limpiarSintomas() {
-        txaSintomas.setText("");
+        txtaSintomas.setText("");
     }
 
     public void limpiarIdConsulta() {
@@ -115,8 +154,8 @@ public class FormReceta extends javax.swing.JFrame {
     }
 
     public boolean tieneCamposVacios() {
-        return txaDiagnostico.getText().isEmpty()
-                || txaSintomas.getText().isEmpty()
+        return txtaDiagnostico.getText().isEmpty()
+                || txtaSintomas.getText().isEmpty()
                 || txtaRecomendaciones.getText().isEmpty()
                 || tablaMedicamentos.getModel().getRowCount() == 0;
     }
@@ -313,37 +352,37 @@ public class FormReceta extends javax.swing.JFrame {
     }
 
     public JTextArea getTxaDiagnostico() {
-        return txaDiagnostico;
+        return txtaDiagnostico;
     }
 
     public void setTxaDiagnostico(JTextArea txaDiagnostico) {
-        this.txaDiagnostico = txaDiagnostico;
+        this.txtaDiagnostico = txaDiagnostico;
     }
 
     public JTextArea getTxaSintomas() {
-        return txaSintomas;
+        return txtaSintomas;
     }
 
     public void setTxaSintomas(JTextArea txaSintomas) {
-        this.txaSintomas = txaSintomas;
+        this.txtaSintomas = txaSintomas;
     }
     
     
 
     public JTextArea getDiagnostico() {
-        return txaDiagnostico;
+        return txtaDiagnostico;
     }
 
     public void setDiagnostico(JTextArea txaDiagnostico) {
-        this.txaDiagnostico = txaDiagnostico;
+        this.txtaDiagnostico = txaDiagnostico;
     }
 
     public JTextArea getSintomas() {
-        return txaSintomas;
+        return txtaSintomas;
     }
 
     public void setSintomas(JTextArea txaSintomas) {
-        this.txaSintomas = txaSintomas;
+        this.txtaSintomas = txaSintomas;
     }
 
     public JTextArea getTxtaRecomendaciones() {
@@ -370,10 +409,10 @@ public class FormReceta extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txaSintomas = new javax.swing.JTextArea();
+        txtaSintomas = new javax.swing.JTextArea();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        txaDiagnostico = new javax.swing.JTextArea();
+        txtaDiagnostico = new javax.swing.JTextArea();
         comboMedicamento = new javax.swing.JComboBox<>();
         btnAgregarMedicamento = new javax.swing.JButton();
         btnEliminarMedicamento = new javax.swing.JButton();
@@ -383,7 +422,7 @@ public class FormReceta extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMedicamentos = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nueva receta");
 
         jLabel1.setBackground(new java.awt.Color(51, 102, 255));
@@ -405,15 +444,15 @@ public class FormReceta extends javax.swing.JFrame {
 
         jLabel13.setText("Recomendaciones:");
 
-        txaSintomas.setColumns(20);
-        txaSintomas.setRows(5);
-        jScrollPane2.setViewportView(txaSintomas);
+        txtaSintomas.setColumns(20);
+        txtaSintomas.setRows(5);
+        jScrollPane2.setViewportView(txtaSintomas);
 
         jLabel14.setText("Sintomas:");
 
-        txaDiagnostico.setColumns(20);
-        txaDiagnostico.setRows(5);
-        jScrollPane3.setViewportView(txaDiagnostico);
+        txtaDiagnostico.setColumns(20);
+        txtaDiagnostico.setRows(5);
+        jScrollPane3.setViewportView(txtaDiagnostico);
 
         btnAgregarMedicamento.setText("Agregar Medicamento");
         btnAgregarMedicamento.setName("agregar_medicamento"); // NOI18N
@@ -544,8 +583,8 @@ public class FormReceta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tablaMedicamentos;
-    private javax.swing.JTextArea txaDiagnostico;
-    private javax.swing.JTextArea txaSintomas;
+    private javax.swing.JTextArea txtaDiagnostico;
     private javax.swing.JTextArea txtaRecomendaciones;
+    private javax.swing.JTextArea txtaSintomas;
     // End of variables declaration//GEN-END:variables
 }
