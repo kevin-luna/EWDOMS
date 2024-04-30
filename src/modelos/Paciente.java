@@ -123,7 +123,7 @@ public class Paciente {
         return correo_electronico;
     }
 
-    public void setCorreElectronico(String correo_electronico) {
+    public void setCorreoElectronico(String correo_electronico) {
         this.correo_electronico = correo_electronico;
     }
 

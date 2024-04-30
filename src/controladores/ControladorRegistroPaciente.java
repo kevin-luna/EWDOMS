@@ -14,14 +14,14 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelos.Paciente;
-import vistas.RegistroPaciente;
+import vistas.FormPaciente;
 
 public class ControladorRegistroPaciente implements ActionListener {
     private Paciente paciente;
     private DAOPaciente daoPaciente;
-    private RegistroPaciente menuRegistro;
+    private FormPaciente menuRegistro;
 
-    public ControladorRegistroPaciente(RegistroPaciente menuRegistro) {
+    public ControladorRegistroPaciente(FormPaciente menuRegistro) {
         this.menuRegistro = menuRegistro;
         daoPaciente = new DAOPaciente();
     }
@@ -48,13 +48,23 @@ public class ControladorRegistroPaciente implements ActionListener {
                         menuRegistro.obtenerTelefono(),
                         menuRegistro.obtenerCorreo()
                 );
-                boolean status = daoPaciente.insertar(paciente);
+                boolean status ;
+                String accion, accion2;
+                if(menuRegistro.getActualizar()){
+                    accion="actualizó";
+                    accion2="actualizar";
+                    status = daoPaciente.actualizar(menuRegistro.obtenerPaciente().getId(), menuRegistro.obtenerPaciente());
+                }else{
+                    accion="registró";
+                    accion2="registrar";
+                    status = daoPaciente.insertar(paciente);
+                }
                 if (status) {
-                    JOptionPane.showMessageDialog(menuRegistro, "Se agregó el paciente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(menuRegistro, "Se "+accion+" el paciente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
                     menuRegistro.limpiar();
                     menuRegistro.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(menuRegistro, "No se pudo registrar el paciente.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(menuRegistro, "No se pudo "+accion2+" el paciente.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             case "cancelar":
