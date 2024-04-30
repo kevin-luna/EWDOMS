@@ -8,6 +8,7 @@ import controladores.ControladorRegistroConsulta;
 import dao.DAOMedico;
 import dao.DAOPaciente;
 import java.util.ArrayList;
+import modelos.ConsultaMedica;
 import modelos.Medico;
 import modelos.Paciente;
 
@@ -15,19 +16,21 @@ import modelos.Paciente;
  *
  * @author amoel
  */
-public class RegistroConsultaMedica extends javax.swing.JFrame {
+public class FormConsultaMedica extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistroConsultaMedica
      */
-    Paciente paciente;
-    Medico medico;
-    DAOPaciente daoPaciente;
-    DAOMedico dAOMedico;
-    ArrayList<Paciente> listaPacientes;
-    ArrayList<Medico> listaMedico;
+    private Paciente paciente;
+    private Medico medico;
+    private DAOPaciente daoPaciente;
+    private DAOMedico dAOMedico;
+    private ArrayList<Paciente> listaPacientes;
+    private ArrayList<Medico> listaMedico;
+    private ConsultaMedica consulta;
+    private boolean actualizar;
     
-    public RegistroConsultaMedica() {
+    public FormConsultaMedica() {
         initComponents();
         daoPaciente = new DAOPaciente();
         dAOMedico = new DAOMedico();
@@ -42,6 +45,27 @@ public class RegistroConsultaMedica extends javax.swing.JFrame {
             comboMedico.addItem(m.getNombre());
         }
     }
+    
+    public void cargarConsulta(ConsultaMedica consulta){
+        this.consulta = consulta;
+        txtFecha.setText(consulta.getFecha());
+    }
+    
+    public ConsultaMedica obtenerConsulta(){
+        consulta.setIdMedico(obtenerIdMedico());
+        consulta.setIdPaciente(obtenerIdPaciente());
+        consulta.setFecha(obtenerFecha());
+        return consulta;
+    }
+
+    public boolean getActualizar() {
+        return actualizar;
+    }
+
+    public void setActualizar(boolean actualizar) {
+        this.actualizar = actualizar;
+    }
+    
     
     public String obtenerFecha() {
         return txtFecha.getText();

@@ -10,14 +10,14 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelos.ConsultaMedica;
-import vistas.RegistroConsultaMedica;
+import vistas.FormConsultaMedica;
 
 public class ControladorRegistroConsulta implements ActionListener {
     private ConsultaMedica consulta;
     private DAOConsultaMedica daoConsulta;
-    private RegistroConsultaMedica menuRegistro;
+    private FormConsultaMedica menuRegistro;
 
-    public ControladorRegistroConsulta(RegistroConsultaMedica menuRegistro) {
+    public ControladorRegistroConsulta(FormConsultaMedica menuRegistro) {
         this.menuRegistro = menuRegistro;
         daoConsulta = new DAOConsultaMedica();
     }
@@ -38,13 +38,23 @@ public class ControladorRegistroConsulta implements ActionListener {
                         menuRegistro.obtenerIdMedico(),
                         menuRegistro.obtenerFecha()
                 );
-                boolean status = daoConsulta.insertar(consulta);
+                boolean status;
+                String accion, accion2;
+                if(menuRegistro.getActualizar()){
+                    accion = "actuaizó";
+                    accion2 = "actualizar";
+                    status = daoConsulta.actualizar(menuRegistro.obtenerConsulta().getId(), menuRegistro.obtenerConsulta());
+                }else{
+                    accion = "registró";
+                    accion2="registrar";
+                    status = daoConsulta.insertar(consulta);
+                }
                 if (status) {
-                    JOptionPane.showMessageDialog(menuRegistro, "Se agregó la consulta.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(menuRegistro, "La consulta se "+accion+" exitosamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
                     menuRegistro.limpiar();
                     menuRegistro.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(menuRegistro, "No se pudo registrar la consulta.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(menuRegistro, "No se pudo "+accion2+" actualizar.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             case "cancelar":

@@ -14,18 +14,18 @@ import java.util.HashSet;
 import javax.swing.table.DefaultTableModel;
 import modelos.DetalleReceta;
 import modelos.Receta;
-import vistas.RegistroReceta;
+import vistas.FormReceta;
 
 public class ControladorRegistroReceta implements ActionListener {
 
     private Receta receta;
     private DAOReceta daoReceta;
-    private RegistroReceta menuRegistro;
+    private FormReceta menuRegistro;
     private HashSet<Long> medicamentosAgregados;
     private DefaultTableModel modeloTabla;
     private int medicamentoSeleccionado;
 
-    public ControladorRegistroReceta(RegistroReceta menuRegistro) {
+    public ControladorRegistroReceta(FormReceta menuRegistro) {
         this.menuRegistro = menuRegistro;
         daoReceta = new DAOReceta();
         modeloTabla = menuRegistro.getModeloListaMedicamentos();

@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/kevin/Descargas/ElWeroBitch/MiConsultorio/src/dao/DAOConsultaMedica.java</file>
-            <file>file:/home/kevin/Descargas/ElWeroBitch/MiConsultorio/src/controladores/ControladorVistaConsultas.java</file>
-            <file>file:/home/kevin/Descargas/ElWeroBitch/MiConsultorio/src/vistas/MenuPrincipal.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/controladores/ControladorVistaConsultas.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/controladores/ControladorVistaMedicamentos.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/dao/DAOMedico.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/main/Main.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/controladores/ControladorVistaPacientes.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/vistas/MenuPrincipal.java</file>
         </group>
     </open-files>
 </project-private>

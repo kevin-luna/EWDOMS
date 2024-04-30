@@ -27,7 +27,7 @@ import modelos.Medicamento;
  *
  * @author amoel
  */
-public class RegistroReceta extends javax.swing.JFrame {
+public class FormReceta extends javax.swing.JFrame {
     
     ConsultaMedica consulta;
     Medicamento medicamento;
@@ -39,7 +39,7 @@ public class RegistroReceta extends javax.swing.JFrame {
     /**
      * Creates new form RegistroReceta
      */
-    public RegistroReceta() {
+    public FormReceta() {
         initComponents();
         modeloListaMedicamentos = (DefaultTableModel)tablaMedicamentos.getModel();
         daoConsultaMedica = new DAOConsultaMedica();

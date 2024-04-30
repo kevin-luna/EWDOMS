@@ -13,20 +13,20 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelos.Receta;
 import vistas.MenuPrincipal;
-import vistas.RegistroReceta;
+import vistas.FormReceta;
 
 public class ControladorVistaRecetas implements ActionListener {
 
     private MenuPrincipal menu;
     private DAOReceta daoReceta;
     private ArrayList<Receta> listaRecetas;
-    private RegistroReceta menuRegistro;
+    private FormReceta menuRegistro;
     private ControladorRegistroReceta controladorRegistroReceta;
 
     public ControladorVistaRecetas(MenuPrincipal menu) {
         this.menu = menu;
         daoReceta = new DAOReceta();
-        menuRegistro = new RegistroReceta();
+        menuRegistro = new FormReceta();
         controladorRegistroReceta = new ControladorRegistroReceta(menuRegistro);
         menuRegistro.agregarEventos(controladorRegistroReceta);
     }
