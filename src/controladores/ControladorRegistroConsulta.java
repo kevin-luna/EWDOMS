@@ -42,13 +42,13 @@ public class ControladorRegistroConsulta implements ActionListener {
                 if (status) {
                     JOptionPane.showMessageDialog(menuRegistro, "Se agregó la consulta.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
                     menuRegistro.limpiar();
-                    menuRegistro.setVisible(false);
+                    menuRegistro.dispose();
                 } else {
                     JOptionPane.showMessageDialog(menuRegistro, "No se pudo registrar la consulta.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             case "cancelar":
-                menuRegistro.setVisible(false);
+                menuRegistro.dispose();
                 break;
         }
     }

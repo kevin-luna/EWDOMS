@@ -42,12 +42,12 @@ public class ControladorRegistroMedicamento implements ActionListener{
                 if(status){
                     JOptionPane.showMessageDialog(menuRegistro, "Se agregó el registró el medicamento.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
                     menuRegistro.limpiar();
-                    menuRegistro.setVisible(false);
+                    menuRegistro.dispose();
                 }else{
                     JOptionPane.showMessageDialog(menuRegistro, "No se pudo registrar el medicamento.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            case "cancelar" -> menuRegistro.setVisible(false);
+            case "cancelar" -> menuRegistro.dispose();
         }
     }
     
