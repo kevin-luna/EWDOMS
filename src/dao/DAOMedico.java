@@ -50,7 +50,8 @@ public class DAOMedico implements DAO<Long, Medico>{
         return null;
     }
     
-    public Medico consultar(String nombre) {
+    public ArrayList<Medico> buscar(String nombre) {
+        ArrayList<Medico> listaResultados = new ArrayList<Medico>();
         Connection conexion = conector.iniciar();
         if(conexion!=null){
             String sql = "SELECT * FROM medico WHERE nombre LIKE ?";
@@ -58,14 +59,15 @@ public class DAOMedico implements DAO<Long, Medico>{
                 PreparedStatement consulta = conexion.prepareStatement(sql);
                 consulta.setString(1,nombre);
                 ResultSet coincidencias = consulta.executeQuery();
-                if(coincidencias.next()){
-                    Medico objeto = new Medico(coincidencias.getLong("id"),
+                while(coincidencias.next()){
+                    Medico medico = new Medico(coincidencias.getLong("id"),
                             coincidencias.getString("nombre"),
                             coincidencias.getString("especialidad"),
                             coincidencias.getString("cedula"),
                             coincidencias.getString("instituto"));
-                    return objeto;
+                    listaResultados.add(medico);
                 }
+                    return listaResultados;
             } catch (SQLException ex) {
                 return null;
             }finally{

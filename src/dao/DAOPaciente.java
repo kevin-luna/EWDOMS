@@ -57,6 +57,40 @@ public class DAOPaciente implements DAO<Long, Paciente> {
         return null;
     }
 
+    public ArrayList<Paciente> buscar(String nombre) {
+        ArrayList<Paciente> listaResultados = new ArrayList<Paciente>();
+        Connection conexion = conector.iniciar();
+        if (conexion != null) {
+            String sql = "SELECT * FROM paciente WHERE nombre LIKE ?";
+            try {
+                PreparedStatement consulta = conexion.prepareStatement(sql);
+                consulta.setString(1, nombre);
+                ResultSet coincidencias = consulta.executeQuery();
+                while (coincidencias.next()) {
+                    Paciente paciente = new Paciente(
+                            coincidencias.getLong("id"),
+                            coincidencias.getString("nombre"),
+                            coincidencias.getString("tipo_sangre"),
+                            coincidencias.getString("sexo"),
+                            coincidencias.getFloat("altura"),
+                            coincidencias.getFloat("peso"),
+                            coincidencias.getString("fecha_nacimiento"),
+                            coincidencias.getString("direccion"),
+                            coincidencias.getString("telefono"),
+                            coincidencias.getString("correo_electronico")
+                    );
+                    listaResultados.add(paciente);
+                }
+                return listaResultados;
+            } catch (SQLException ex) {
+                return null;
+            } finally {
+                conector.terminar();
+            }
+        }
+        return null;
+    }
+
     @Override
     public ArrayList<Paciente> consultar() {
         Connection conexion = conector.iniciar();
@@ -65,19 +99,19 @@ public class DAOPaciente implements DAO<Long, Paciente> {
             String sql = "SELECT * FROM paciente";
             try {
                 Statement consulta = conexion.createStatement();
-                ResultSet resultados = consulta.executeQuery(sql);
-                while (resultados.next()) {
+                ResultSet coincidencias = consulta.executeQuery(sql);
+                while (coincidencias.next()) {
                     Paciente paciente = new Paciente(
-                            resultados.getLong("id"),
-                            resultados.getString("nombre"),
-                            resultados.getString("tipo_sangre"),
-                            resultados.getString("sexo"),
-                            resultados.getFloat("altura"),
-                            resultados.getFloat("peso"),
-                            resultados.getString("fecha_nacimiento"),
-                            resultados.getString("direccion"),
-                            resultados.getString("telefono"),
-                            resultados.getString("correo_electronico")
+                            coincidencias.getLong("id"),
+                            coincidencias.getString("nombre"),
+                            coincidencias.getString("tipo_sangre"),
+                            coincidencias.getString("sexo"),
+                            coincidencias.getFloat("altura"),
+                            coincidencias.getFloat("peso"),
+                            coincidencias.getString("fecha_nacimiento"),
+                            coincidencias.getString("direccion"),
+                            coincidencias.getString("telefono"),
+                            coincidencias.getString("correo_electronico")
                     );
                     listaPacientes.add(paciente);
                 }

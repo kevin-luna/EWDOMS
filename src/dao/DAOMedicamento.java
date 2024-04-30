@@ -11,8 +11,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import dao.Conector;
-import dao.DAO;
 import modelos.Medicamento;
 
 /**
@@ -52,7 +50,34 @@ public class DAOMedicamento implements DAO<Long, Medicamento> {
         }
         return null;
     }
-    
+
+    public ArrayList<Medicamento> buscar(String nombre) {
+        ArrayList<Medicamento> listaResultados = new ArrayList<Medicamento>();
+        Connection conexion = conector.iniciar();
+        if (conexion != null) {
+            String sql = "SELECT * FROM medicamento WHERE nombre LIKE ?";
+            try {
+                PreparedStatement consulta = conexion.prepareStatement(sql);
+                consulta.setString(1, nombre);
+                ResultSet coincidencias = consulta.executeQuery();
+                while (coincidencias.next()) {
+                    Medicamento medicamento = new Medicamento(
+                            coincidencias.getLong("id"),
+                            coincidencias.getString("nombre"),
+                            coincidencias.getInt("existencia")
+                    );
+                    listaResultados.add(medicamento);
+                }
+                return listaResultados;
+            } catch (SQLException ex) {
+                return null;
+            } finally {
+                conector.terminar();
+            }
+        }
+        return null;
+    }
+
     @Override
     public ArrayList<Medicamento> consultar() {
         Connection conexion = conector.iniciar();
@@ -61,12 +86,12 @@ public class DAOMedicamento implements DAO<Long, Medicamento> {
             String sql = "SELECT * FROM medicamento";
             try {
                 Statement consulta = conexion.createStatement();
-                ResultSet resultados = consulta.executeQuery(sql);
-                while (resultados.next()) {
+                ResultSet coincidencias = consulta.executeQuery(sql);
+                while (coincidencias.next()) {
                     Medicamento medicamento = new Medicamento(
-                            resultados.getLong("id"),
-                            resultados.getString("nombre"),
-                            resultados.getInt("existencia")
+                            coincidencias.getLong("id"),
+                            coincidencias.getString("nombre"),
+                            coincidencias.getInt("existencia")
                     );
                     listaMedicamentos.add(medicamento);
                 }
