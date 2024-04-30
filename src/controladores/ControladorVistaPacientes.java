@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import modelos.Paciente;
 import vistas.MenuPrincipal;
 import vistas.RegistroPaciente;
@@ -16,8 +17,6 @@ import vistas.RegistroPaciente;
  *
  * @author kevin
  */
-
-
 public class ControladorVistaPacientes implements ActionListener {
 
     private MenuPrincipal menu;
@@ -34,6 +33,41 @@ public class ControladorVistaPacientes implements ActionListener {
         menuRegistro.agregarEventos(controladorRegistroPaciente);
     }
 
+    public void actualizarVista() {
+        System.out.println("Solicitando la lista de pacientes al servidor...");
+        listaPacientes = daoPaciente.consultar();
+        DefaultTableModel modeloTabla = (DefaultTableModel) menu.getTablaPacientes().getModel();
+        modeloTabla.setRowCount(0);
+        for (Paciente paciente : listaPacientes) {
+            modeloTabla.addRow(new Object[]{
+                paciente.getId(),
+                paciente.getNombre(),
+                paciente.getTipoSangre(),
+                paciente.getSexo(),
+                paciente.getAltura(),
+                paciente.getPeso(),
+                paciente.getFechaNacimiento(),
+                paciente.getDireccion(),
+                paciente.getTelefono(),
+                paciente.getCorreoElectronico()
+            });
+
+        }
+    }
+
+    public void eliminarPaciente() {
+        int filaSelccionada = menu.getTablaPacientes().getSelectedRow();
+        long id = (Long) menu.getTablaPacientes().getValueAt(filaSelccionada, 0);
+        if (filaSelccionada != -1) {
+            if (daoPaciente.eliminar(id)) {
+                JOptionPane.showMessageDialog(menu, "El paciente ha sido eliminado.", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
+                actualizarVista();
+            } else {
+                JOptionPane.showMessageDialog(menu, "No se ha podido eliminar el paciente.", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Boton presionado");
@@ -41,25 +75,7 @@ public class ControladorVistaPacientes implements ActionListener {
 
         switch (boton.getName()) {
             case "todos_pacientes":
-                System.out.println("Solicitando la lista de pacientes al servidor...");
-                listaPacientes = daoPaciente.consultar();
-                DefaultTableModel modeloTabla = (DefaultTableModel) menu.getTablaPacientes().getModel();
-                modeloTabla.setRowCount(0);
-                for (Paciente paciente : listaPacientes) {
-                    modeloTabla.addRow(new Object[]{
-                        paciente.getId(),
-                        paciente.getNombre(),
-                        paciente.getTipoSangre(),
-                        paciente.getSexo(),
-                        paciente.getAltura(),
-                        paciente.getPeso(),
-                        paciente.getFechaNacimiento(),
-                        paciente.getDireccion(),
-                        paciente.getTelefono(),
-                        paciente.getCorreoElectronico()
-                    });
-
-                }
+                actualizarVista();
                 break;
             case "nuevo_paciente":
                 menuRegistro.setVisible(true);
@@ -68,6 +84,7 @@ public class ControladorVistaPacientes implements ActionListener {
                 menuRegistro.setVisible(true);
                 break;
             case "eliminar_paciente":
+                eliminarPaciente();
                 break;
         }
     }

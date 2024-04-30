@@ -16,6 +16,7 @@ import vistas.MenuPrincipal;
 import vistas.RegistroConsultaMedica;
 
 public class ControladorVistaConsultas implements ActionListener {
+
     private MenuPrincipal menu;
     private DAOConsultaMedica daoConsulta;
     private ArrayList<ConsultaMedica> listaConsultas;
@@ -32,6 +33,27 @@ public class ControladorVistaConsultas implements ActionListener {
         modeloTabla = (DefaultTableModel) menu.getTablaConsultas().getModel();
     }
 
+    public void actualizarVista() {
+        listaConsultas = daoConsulta.consultar();
+        modeloTabla.setRowCount(0);
+        for (ConsultaMedica consulta : listaConsultas) {
+            modeloTabla.addRow(new Object[]{consulta.getId(), consulta.getIdPaciente(), consulta.getIdMedico(), consulta.getFecha(),});
+        }
+    }
+    
+    public void eliminarConsulta(){
+        int filaSelccionada = menu.getTablaConsultas().getSelectedRow();
+                long id = (Long) menu.getTablaConsultas().getValueAt(filaSelccionada, 0);
+                if (filaSelccionada != -1) {
+                    if (daoConsulta.eliminar(id)) {
+                        JOptionPane.showMessageDialog(menu, "La consulta ha sido eliminada.", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
+                        actualizarVista();
+                    } else {
+                        JOptionPane.showMessageDialog(menu, "No se ha podido eliminar la consulta.", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Boton presionado");
@@ -39,12 +61,7 @@ public class ControladorVistaConsultas implements ActionListener {
 
         switch (boton.getName()) {
             case "todas_consultas":
-                System.out.println("Solicitando la lista de consultas al servidor...");
-                listaConsultas = daoConsulta.consultar();
-                modeloTabla.setRowCount(0);
-                for (ConsultaMedica consulta : listaConsultas) {
-                    modeloTabla.addRow(new Object[]{consulta.getId(),  consulta.getIdPaciente(), consulta.getIdMedico(),consulta.getFecha(),});
-                }
+                actualizarVista();
                 break;
             case "nueva_consulta":
                 menuRegistro.setVisible(true);
@@ -53,16 +70,7 @@ public class ControladorVistaConsultas implements ActionListener {
                 menuRegistro.setVisible(true);
                 break;
             case "eliminar_consulta":
-                int filaSelccionada = menu.getTablaConsultas().getSelectedRow();
-                long id = (Long)menu.getTablaConsultas().getValueAt(filaSelccionada, 0);
-                if(filaSelccionada!=-1){
-                    if(daoConsulta.eliminar(id)){
-                        JOptionPane.showMessageDialog(menu,"Consulta eliminada con éxito.", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
-                        modeloTabla.removeRow(filaSelccionada);
-                    }else{
-                        JOptionPane.showMessageDialog(menu,"No se ha podido eliminar la consulta.", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
+                eliminarConsulta();
                 break;
         }
     }

@@ -10,16 +10,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import modelos.Medico;
 import vistas.MenuPrincipal;
 import vistas.RegistroMedico;
 
 public class ControladorVistaMedicos implements ActionListener {
+
     private MenuPrincipal menu;
     private DAOMedico daoMedico;
     private ArrayList<Medico> listaMedicos;
     private RegistroMedico menuRegistro;
     private ControladorRegistroMedico controladorRegistroMedico;
+    private DefaultTableModel modeloTabla;
 
     public ControladorVistaMedicos(MenuPrincipal menu) {
         this.menu = menu;
@@ -27,27 +30,46 @@ public class ControladorVistaMedicos implements ActionListener {
         menuRegistro = new RegistroMedico();
         controladorRegistroMedico = new ControladorRegistroMedico(menuRegistro);
         menuRegistro.agregarEventos(controladorRegistroMedico);
+        modeloTabla = (DefaultTableModel) menu.getTablaConsultas().getModel();
+    }
+
+    public void actualizarVista() {
+        listaMedicos = daoMedico.consultar();
+        DefaultTableModel modeloTabla = (DefaultTableModel) menu.getTablaMedicos().getModel();
+        modeloTabla.setRowCount(0);
+        for (Medico medico : listaMedicos) {
+            modeloTabla.addRow(new Object[]{medico.getId(), medico.getNombre(), medico.getEspecialidad(), medico.getCedula(), medico.getInstituto()});
+        }
+    }
+
+    public void eliminarMedico() {
+        int filaSelccionada = menu.getTablaMedicos().getSelectedRow();
+        long id = (Long) menu.getTablaMedicos().getValueAt(filaSelccionada, 0);
+        if (filaSelccionada != -1) {
+            if (daoMedico.eliminar(id)) {
+                JOptionPane.showMessageDialog(menu, "El médico ha sido eliminado.", "Eliminación exitosa", JOptionPane.INFORMATION_MESSAGE);
+                actualizarVista();
+            } else {
+                JOptionPane.showMessageDialog(menu, "No se ha podido eliminar el médico.", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Boton presionado");
         JButton boton = (JButton) e.getSource();
-        System.out.println("El nombre del boton es"+boton.getName());
         switch (boton.getName()) {
             case "todos_medicos" -> {
-                System.out.println("Solicitando la lista de medicos al servidor...");
-                listaMedicos = daoMedico.consultar();
-                DefaultTableModel modeloTabla = (DefaultTableModel) menu.getTablaMedicos().getModel();
-                modeloTabla.setRowCount(0);
-                for (Medico medico : listaMedicos) {
-                    modeloTabla.addRow(new Object[]{medico.getId(), medico.getNombre(), medico.getEspecialidad(),medico.getCedula(), medico.getInstituto()});
-                }
+                actualizarVista();
             }
-            case "nuevo_medico" -> menuRegistro.setVisible(true);
-            case "editar_medico" -> menuRegistro.setVisible(true);
+            case "nuevo_medico" ->
+                menuRegistro.setVisible(true);
+            case "editar_medico" ->
+                menuRegistro.setVisible(true);
             case "eliminar_medico" -> {
+                eliminarMedico();
             }
+
         }
     }
 }
