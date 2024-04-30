@@ -10,14 +10,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import modelos.Medico;
-import vistas.RegistroMedico;
+import vistas.FormMedico;
 
 public class ControladorRegistroMedico implements ActionListener {
     private Medico medico;
     private DAOMedico daoMedico;
-    private RegistroMedico menuRegistro;
+    private FormMedico menuRegistro;
 
-    public ControladorRegistroMedico(RegistroMedico menuRegistro) {
+    public ControladorRegistroMedico(FormMedico menuRegistro) {
         this.menuRegistro = menuRegistro;
         daoMedico = new DAOMedico();
     }
@@ -33,14 +33,23 @@ public class ControladorRegistroMedico implements ActionListener {
                     JOptionPane.showMessageDialog(menuRegistro, "No pueden quedar campos vacíos", "Atención", JOptionPane.WARNING_MESSAGE);
                     break;
                 }
-                medico = new Medico(menuRegistro.obtenerContenidoNombre(), menuRegistro.obtenerContenidoEspecialidad(), menuRegistro.obtenerContenidoCedula(), menuRegistro.obtenerContenidoInstituto());
-                boolean status = daoMedico.insertar(medico);
+                boolean status;
+                String accion,accion2;
+                if(menuRegistro.getActualizar()){
+                    accion = "actualizò";
+                    accion2 = "actualizar";
+                    status = daoMedico.actualizar(menuRegistro.obtenerMedico().getId(), menuRegistro.obtenerMedico());
+                }else{
+                    accion = "registró";
+                    accion2 = "registrar";
+                    status = daoMedico.insertar(menuRegistro.obtenerMedico());
+                }
                 if (status) {
-                    JOptionPane.showMessageDialog(menuRegistro, "Se agregó el médico.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(menuRegistro, "Se "+accion+" el médico.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
                     menuRegistro.limpiar();
                     menuRegistro.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(menuRegistro, "No se pudo registrar el médico.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(menuRegistro, "No se pudo "+accion2+" el médico.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             case "cancelar":
