@@ -7,9 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import modelos.Medico;
 import modelos.Paciente;
 import vistas.MenuPrincipal;
-import vistas.RegistroPaciente;
+import vistas.FormPaciente;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -22,13 +23,13 @@ public class ControladorVistaPacientes implements ActionListener {
     private MenuPrincipal menu;
     private DAOPaciente daoPaciente;
     private ArrayList<Paciente> listaPacientes;
-    private RegistroPaciente menuRegistro;
+    private FormPaciente menuRegistro;
     private ControladorRegistroPaciente controladorRegistroPaciente;
 
     public ControladorVistaPacientes(MenuPrincipal menu) {
         this.menu = menu;
         daoPaciente = new DAOPaciente();
-        menuRegistro = new RegistroPaciente();
+        menuRegistro = new FormPaciente();
         controladorRegistroPaciente = new ControladorRegistroPaciente(menuRegistro);
         menuRegistro.agregarEventos(controladorRegistroPaciente);
     }
@@ -57,13 +58,29 @@ public class ControladorVistaPacientes implements ActionListener {
 
     public void eliminarPaciente() {
         int filaSelccionada = menu.getTablaPacientes().getSelectedRow();
-        long id = (Long) menu.getTablaPacientes().getValueAt(filaSelccionada, 0);
+        
         if (filaSelccionada != -1) {
+            long id = (Long) menu.getTablaPacientes().getValueAt(filaSelccionada, 0);
             if (daoPaciente.eliminar(id)) {
                 JOptionPane.showMessageDialog(menu, "El paciente ha sido eliminado.", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
                 actualizarVista();
             } else {
                 JOptionPane.showMessageDialog(menu, "No se ha podido eliminar el paciente.", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    public void editarPaciente(){
+        int filaSeleccionada = menu.getTablaPacientes().getSelectedRow();
+        
+        if (filaSeleccionada != -1) {
+            menuRegistro.setActualizar(true);
+            long id = (Long) menu.getTablaPacientes().getValueAt(filaSeleccionada, 0);
+            Paciente tmp = daoPaciente.consultar(id);
+            if (tmp != null) {
+                menuRegistro.setActualizar(true);
+                menuRegistro.cargarPaciente(tmp);
+                menuRegistro.setVisible(true);
             }
         }
     }
@@ -78,10 +95,11 @@ public class ControladorVistaPacientes implements ActionListener {
                 actualizarVista();
                 break;
             case "nuevo_paciente":
+                menuRegistro.setActualizar(false);
                 menuRegistro.setVisible(true);
                 break;
             case "editar_paciente":
-                menuRegistro.setVisible(true);
+                editarPaciente();
                 break;
             case "eliminar_paciente":
                 eliminarPaciente();
