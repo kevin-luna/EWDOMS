@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import modelos.Medicamento;
-import vistas.RegistroMedicamento;
+import vistas.FormMedicamento;
 
 /**
  *
@@ -20,9 +20,9 @@ public class ControladorRegistroMedicamento implements ActionListener{
 
     Medicamento medicamento;
     DAOMedicamento daoMedicamento;
-    RegistroMedicamento menuRegistro;
+    FormMedicamento menuRegistro;
 
-    public ControladorRegistroMedicamento(RegistroMedicamento menuRegistro) {
+    public ControladorRegistroMedicamento(FormMedicamento menuRegistro) {
         this.menuRegistro = menuRegistro;
         daoMedicamento = new DAOMedicamento();
     }
@@ -38,13 +38,23 @@ public class ControladorRegistroMedicamento implements ActionListener{
                     break;
                 }
                 medicamento = new Medicamento(menuRegistro.obtenerContenidoNombre(),menuRegistro.obtenerContenidoExistencia());
-                boolean status = daoMedicamento.insertar(medicamento);
+                boolean status;
+                String accion,accion2;
+                if(menuRegistro.getActualizar()){
+                    accion = "actualizó";
+                    accion2="actualizar";
+                    status = daoMedicamento.actualizar(menuRegistro.obtenerMedicamento().getId(),menuRegistro.obtenerMedicamento());
+                }else{
+                    accion = "registró";
+                    accion2 = "actualizar";
+                    status = daoMedicamento.insertar(medicamento);
+                }
                 if(status){
-                    JOptionPane.showMessageDialog(menuRegistro, "Se agregó el registró el medicamento.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(menuRegistro, "Se "+accion+" el medicamento.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
                     menuRegistro.limpiar();
                     menuRegistro.dispose();
                 }else{
-                    JOptionPane.showMessageDialog(menuRegistro, "No se pudo registrar el medicamento.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(menuRegistro, "No se pudo "+accion2+" el medicamento.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
                 }
             }
             case "cancelar" -> menuRegistro.dispose();

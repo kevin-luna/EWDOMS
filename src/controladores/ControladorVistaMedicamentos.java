@@ -12,8 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelos.Medicamento;
+import modelos.Medico;
 import vistas.MenuPrincipal;
-import vistas.RegistroMedicamento;
+import vistas.FormMedicamento;
 
 /**
  *
@@ -24,13 +25,13 @@ public class ControladorVistaMedicamentos implements ActionListener {
     private MenuPrincipal menu;
     private DAOMedicamento daoMedicamento;
     private ArrayList<Medicamento> listaMedicamentos;
-    private RegistroMedicamento menuRegistro;
+    private FormMedicamento menuRegistro;
     private ControladorRegistroMedicamento controladorRegistroMedicamento;
 
     public ControladorVistaMedicamentos(MenuPrincipal menu) {
         this.menu = menu;
         daoMedicamento = new DAOMedicamento();
-        menuRegistro = new RegistroMedicamento();
+        menuRegistro = new FormMedicamento();
         controladorRegistroMedicamento = new ControladorRegistroMedicamento(menuRegistro);
         menuRegistro.agregarEventos(controladorRegistroMedicamento);
     }
@@ -47,14 +48,28 @@ public class ControladorVistaMedicamentos implements ActionListener {
 
     public void eliminarMedicamento() {
         int filaSelccionada = menu.getTablaMedicamentos().getSelectedRow();
-        long id = (Long) menu.getTablaMedicamentos().getValueAt(filaSelccionada, 0);
         if (filaSelccionada != -1) {
+            long id = (Long) menu.getTablaMedicamentos().getValueAt(filaSelccionada, 0);
             if (daoMedicamento.eliminar(id)) {
                 JOptionPane.showMessageDialog(menu, "El medicamento ha sido eliminado..", "Eliminación exitosa", JOptionPane.INFORMATION_MESSAGE);
                 actualizarVista();
             } else {
                 JOptionPane.showMessageDialog(menu, "No se ha podido eliminar el medicamento.", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    public void editar_medicamento() {
+        int filaSeleccionada = menu.getTablaMedicamentos().getSelectedRow();
+        if (filaSeleccionada != -1) {
+            long id = (Long) menu.getTablaMedicamentos().getValueAt(filaSeleccionada, 0);
+            Medicamento tmp = daoMedicamento.consultar(id);
+            if (tmp != null) {
+                menuRegistro.setActualizar(true);
+                menuRegistro.cargarMedicamento(tmp);
+                menuRegistro.setVisible(true);
+            }
+            actualizarVista();
         }
     }
 
@@ -67,10 +82,11 @@ public class ControladorVistaMedicamentos implements ActionListener {
                 actualizarVista();
                 break;
             case "nuevo_medicamento":
+                menuRegistro.setActualizar(false);
                 menuRegistro.setVisible(true);
                 break;
             case "editar_medicamento":
-                menuRegistro.setVisible(true);
+                editar_medicamento();
                 break;
             case "eliminar_medicamento":
                 eliminarMedicamento();
