@@ -35,7 +35,6 @@ public class ControladorVistaPacientes implements ActionListener {
     }
 
     public void actualizarVista() {
-        System.out.println("Solicitando la lista de pacientes al servidor...");
         listaPacientes = daoPaciente.consultar();
         DefaultTableModel modeloTabla = (DefaultTableModel) menu.getTablaPacientes().getModel();
         modeloTabla.setRowCount(0);
@@ -87,7 +86,6 @@ public class ControladorVistaPacientes implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Boton presionado");
         JButton boton = (JButton) e.getSource();
 
         switch (boton.getName()) {

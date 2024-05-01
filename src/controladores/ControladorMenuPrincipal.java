@@ -21,7 +21,6 @@ public class ControladorMenuPrincipal implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("evento en menu principal");
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

@@ -29,7 +29,6 @@ public class ControladorRegistroMedicamento implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Boton presionado");
         JButton boton = (JButton)e.getSource();
         switch(boton.getName()){
             case "guardar" :

@@ -9,6 +9,7 @@ import dao.DAOConsultaMedica;
 import dao.DAODetalleReceta;
 import dao.DAOMedicamento;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -27,19 +28,19 @@ import modelos.Receta;
  */
 public class FormReceta extends javax.swing.JFrame {
     
-    boolean actualizar;
-    Receta receta;
-    DetalleReceta detalleReceta;
-    ConsultaMedica consulta;
-    Medicamento medicamento;
-    DAOConsultaMedica daoConsultaMedica;
-    DAOMedicamento dAOMedicamento;
-    DAODetalleReceta daoDetalleReceta;
-    ArrayList<ConsultaMedica> listaConsultas;
-    ArrayList<Medicamento> listaMedicamentos;
-    ArrayList<Medicamento> listaMedicamentosReceta;
-    ArrayList<DetalleReceta> listaDetalleReceta;
-    DefaultTableModel modeloListaMedicamentos;
+    private boolean actualizar;
+    private Receta receta;
+    private ConsultaMedica consulta;
+    private Medicamento medicamento;
+    private DetalleReceta detalleReceta;
+    private DAOConsultaMedica daoConsultaMedica;
+    private DAOMedicamento dAOMedicamento;
+    private DAODetalleReceta daoDetalleReceta;
+    private HashMap<Long,ConsultaMedica> catalogoConsultas;
+    private HashMap<Long,String> catalogoMedicamentos;
+    private HashMap<Long,Medicamento> listaMedicamentosReceta;
+    private ArrayList<DetalleReceta> listaDetalleReceta;
+    private DefaultTableModel modeloListaMedicamentos;
     
     /**
      * Creates new form RegistroReceta
@@ -50,14 +51,12 @@ public class FormReceta extends javax.swing.JFrame {
         daoConsultaMedica = new DAOConsultaMedica();
         dAOMedicamento = new DAOMedicamento();
         daoDetalleReceta = new DAODetalleReceta();
-        listaMedicamentos = dAOMedicamento.consultar();
-        listaConsultas = daoConsultaMedica.consultar();
-        
-        for(Medicamento m : listaMedicamentos){
+        //Despliega los medicamentos y las consultas dispinibles
+        for(Medicamento m : dAOMedicamento.consultar()){
             comboMedicamento.addItem(m.getNombre());
         }
         
-        for(ConsultaMedica c: listaConsultas){
+        for(ConsultaMedica c: daoConsultaMedica.consultar()){
             comboConsulta.addItem(Long.toString(c.getId()));
         }
     }
@@ -75,12 +74,35 @@ public class FormReceta extends javax.swing.JFrame {
             modeloListaMedicamentos.addRow(new Object[]{m.getNombre()});
         }
     }
-
-    public ArrayList<Medicamento> getListaMedicamentosReceta() {
-        return listaMedicamentosReceta;
+    
+    public void obtenerMedicamentos(){
+        
     }
     
+    public void obtenerMedicamentoSeleccionadoCombo(){
+        comboMedicamento.getSelectedItem();
+    }
     
+    public long obtenerMedicamentoSeleccionadoTabla(){
+        int filaSeleccionada = this.tablaMedicamentos.getSelectedRow();
+        if(filaSeleccionada!=-1)return Long.parseLong(modeloListaMedicamentos.getValueAt(filaSeleccionada, 0).toString());
+        return -1;
+    }
+    
+    public void agregarMedicamento(){
+        modeloListaMedicamentos.addRow(new Object[]{comboMedicamento.getSelectedItem()});
+    }
+    
+    public void eliminarMedicamento(){
+        int filaSeleccionada = tablaMedicamentos.getSelectedRow();
+        if(filaSeleccionada!=-1){
+            modeloListaMedicamentos.removeRow(filaSeleccionada);
+        }
+    }
+
+    public ArrayList<Medicamento> getListaMedicamentosReceta() {
+        
+    }
     
     public Receta obtenerReceta(){
         return receta = new Receta(obtenerIdConsulta(),obtenerDiagnostico(),obtenerSintomas(),obtenerRecomendaciones());
@@ -93,8 +115,6 @@ public class FormReceta extends javax.swing.JFrame {
     public void setActualizar(boolean actualizar) {
         this.actualizar = actualizar;
     }
-    
-    
 
     // Métodos para obtener el contenido
     public String obtenerDiagnostico() {
@@ -107,7 +127,7 @@ public class FormReceta extends javax.swing.JFrame {
 
     public Long obtenerIdConsulta() {
         int pos = comboConsulta.getSelectedIndex();
-        return listaConsultas.get(pos).getId();
+        return catalogoConsultas.get(pos).getId();
     }
 
     public String obtenerRecomendaciones() {
@@ -200,19 +220,19 @@ public class FormReceta extends javax.swing.JFrame {
     }
 
     public ArrayList<ConsultaMedica> getListaConsultas() {
-        return listaConsultas;
+        return catalogoConsultas;
     }
 
     public void setListaConsultas(ArrayList<ConsultaMedica> listaConsultas) {
-        this.listaConsultas = listaConsultas;
+        this.catalogoConsultas = listaConsultas;
     }
 
     public ArrayList<Medicamento> getListaMedicamentos() {
-        return listaMedicamentos;
+        return catalogoMedicamentos;
     }
 
     public void setListaMedicamentos(ArrayList<Medicamento> listaMedicamentos) {
-        this.listaMedicamentos = listaMedicamentos;
+        this.catalogoMedicamentos = listaMedicamentos;
     }
 
     public DefaultTableModel getModeloListaMedicamentos() {

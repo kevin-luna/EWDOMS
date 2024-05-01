@@ -142,7 +142,6 @@ public class DAOPaciente implements DAO<Long, Paciente> {
                 consulta.setString(7, paciente.getDireccion());
                 consulta.setString(8, paciente.getTelefono());
                 consulta.setString(9, paciente.getCorreoElectronico());
-                System.out.println(paciente.toString());;
                 consulta.executeUpdate();
                 return true;
             } catch (SQLException ex) {

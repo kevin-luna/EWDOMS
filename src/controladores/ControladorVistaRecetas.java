@@ -5,10 +5,8 @@
 package controladores;
 
 import dao.DAODetalleReceta;
-import dao.DAOMedicamento;
 import dao.DAOReceta;
 import javax.swing.JButton;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,46 +34,39 @@ public class ControladorVistaRecetas implements ActionListener {
         menuRegistro.agregarEventos(controladorRegistroReceta);
     }
 
-    public void eliminarReceta() {
-        int filaSelccionada = menu.getTablaRecetas().getSelectedRow();
-        if (filaSelccionada != -1) {
-            long id = (Long) menu.getTablaRecetas().getValueAt(filaSelccionada, 0);
-            if (filaSelccionada != -1) {
-                if (daoReceta.eliminar(id)) {
-                    JOptionPane.showMessageDialog(menu, "La receta ha sido eliminada.", "Eliminación exitosa", JOptionPane.INFORMATION_MESSAGE);
-                    actualizarVista();
-                } else {
-                    JOptionPane.showMessageDialog(menu, "No se ha podido eliminar la receta.", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
-                }
+    public void agregarReceta() {
+        menuRegistro.limpiar();
+        menuRegistro.setActualizar(false);
+        menuRegistro.setVisible(true);
+    }
+
+    public void eliminarReceta(long id) {
+        if (id != -1) {
+            if (daoReceta.eliminar(id)) {
+                JOptionPane.showMessageDialog(menu, "La receta ha sido eliminada.", "Eliminación exitosa", JOptionPane.INFORMATION_MESSAGE);
+                actualizarVista();
+            } else {
+                JOptionPane.showMessageDialog(menu, "No se ha podido eliminar la receta.", "Error al eliminar", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
-    public void editarReceta() {
-        int filaSelccionada = menu.getTablaRecetas().getSelectedRow();
-        if (filaSelccionada != -1) {
-            menuRegistro.setActualizar(true);
-            long id = (Long) menu.getTablaRecetas().getValueAt(filaSelccionada, 0);
-            if (filaSelccionada != -1) {
-                Receta receta = daoReceta.consultar(id);
-                ArrayList<Medicamento> medicamentos = daoDetalleReceta.consultar(id);
-                if (receta != null) {
-                    menuRegistro.setActualizar(true);
-                    menuRegistro.cargarReceta(receta);
-                    menuRegistro.cargarMedicamentos(medicamentos);
-                    menuRegistro.setVisible(true);
-                }
+    public void editarReceta(long id) {
+        if (id != -1) {
+            Receta receta = daoReceta.consultar(id);
+            ArrayList<Medicamento> medicamentos = daoDetalleReceta.consultar(id);
+            if (receta != null) {
+                menuRegistro.setActualizar(true);
+                menuRegistro.cargarReceta(receta);
+                menuRegistro.cargarMedicamentos(medicamentos);
+                menuRegistro.setVisible(true);
             }
         }
     }
 
     public void actualizarVista() {
         listaRecetas = daoReceta.consultar();
-        DefaultTableModel modeloTabla = (DefaultTableModel) menu.getTablaRecetas().getModel();
-        modeloTabla.setRowCount(0);
-        for (Receta receta : listaRecetas) {
-            modeloTabla.addRow(new Object[]{receta.getId(), receta.getId(), receta.getDiagnostico(), receta.getSintomas(), receta.getRecomendaciones()});
-        }
+        menu.cargarRecetas(listaRecetas);
     }
 
     @Override
@@ -87,15 +78,13 @@ public class ControladorVistaRecetas implements ActionListener {
                 actualizarVista();
                 break;
             case "nueva_receta":
-                menuRegistro.limpiar();
-                menuRegistro.setActualizar(false);
-                menuRegistro.setVisible(true);
+                agregarReceta();
                 break;
             case "editar_receta":
-                editarReceta();
+                editarReceta(menu.obtenerRecetaSeleccionada());
                 break;
             case "eliminar_receta":
-                eliminarReceta();
+                eliminarReceta(menu.obtenerRecetaSeleccionada());
                 break;
         }
     }

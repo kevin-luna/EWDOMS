@@ -9,13 +9,15 @@ import controladores.ControladorVistaMedicamentos;
 import controladores.ControladorVistaMedicos;
 import controladores.ControladorVistaPacientes;
 import controladores.ControladorVistaRecetas;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import modelos.Receta;
 
 /**
  *
@@ -23,53 +25,66 @@ import javax.swing.JTextField;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
+    private DefaultTableModel modeloTablaRecetas;
     /**
      * Creates new form MenuPrincipal
      */
     public MenuPrincipal() {
         initComponents();
+        this.modeloTablaRecetas = (DefaultTableModel)this.tablaRecetas.getModel();
+    }
+
+    public void agregarEventos() {
+
+    }
+
+    public void agregarEventosVistaMedicamentos(ControladorVistaMedicamentos controlador) {
+        this.botonVerTodosMedicamentos.addActionListener(controlador);
+        this.botonNuevoMedicamento.addActionListener(controlador);
+        this.botonEditarMedicamento.addActionListener(controlador);
+        this.botonEliminarMedicamento.addActionListener(controlador);
+    }
+
+    public void agregarEventosVistaMedicos(ControladorVistaMedicos controlador) {
+        this.botonVerTodosMedicos.addActionListener(controlador);
+        this.botonNuevoMedico.addActionListener(controlador);
+        this.botonEditarMedico.addActionListener(controlador);
+        this.botonEliminarMedico.addActionListener(controlador);
+    }
+
+    public void agregarEventosVistaPacientes(ControladorVistaPacientes controlador) {
+        this.botonVerTodosPacientes.addActionListener(controlador);
+        this.botonNuevoPaciente.addActionListener(controlador);
+        this.botonEditarPaciente.addActionListener(controlador);
+        this.botonEliminarPaciente.addActionListener(controlador);
+    }
+
+    public void agregarEventosVistaRecetas(ControladorVistaRecetas controlador) {
+        this.botonVerTodasRecetas.addActionListener(controlador);
+        this.botonNuevaReceta.addActionListener(controlador);
+        this.botonEditarReceta.addActionListener(controlador);
+        this.botonEliminarReceta.addActionListener(controlador);
+    }
+
+    public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador) {
+        this.botonVerTodasConsultas.addActionListener(controlador);
+        this.botonNuevaConsulta.addActionListener(controlador);
+        this.botonEditarConsulta.addActionListener(controlador);
+        this.botonEliminarConsulta.addActionListener(controlador);
     }
     
-    public void agregarEventos(){
-        
+    public void cargarRecetas(ArrayList<Receta> recetas){
+        modeloTablaRecetas.setRowCount(0);
+        for (Receta receta : recetas) {
+            modeloTablaRecetas.addRow(new Object[]{receta.getId(), receta.getId(), receta.getDiagnostico(), receta.getSintomas(), receta.getRecomendaciones()});
+        }
     }
     
-    public void agregarEventosVistaMedicamentos(ControladorVistaMedicamentos controlador){
-    System.out.println("Se registraron los eventos correctamente");
-    this.botonVerTodosMedicamentos.addActionListener(controlador);
-    this.botonNuevoMedicamento.addActionListener(controlador);
-    this.botonEditarMedicamento.addActionListener(controlador);
-    this.botonEliminarMedicamento.addActionListener(controlador);
-}
-
-public void agregarEventosVistaMedicos(ControladorVistaMedicos controlador){
-    this.botonVerTodosMedicos.addActionListener(controlador);
-    this.botonNuevoMedico.addActionListener(controlador);
-    this.botonEditarMedico.addActionListener(controlador);
-    this.botonEliminarMedico.addActionListener(controlador);
-}
-
-public void agregarEventosVistaPacientes(ControladorVistaPacientes controlador){
-    this.botonVerTodosPacientes.addActionListener(controlador);
-    this.botonNuevoPaciente.addActionListener(controlador);
-    this.botonEditarPaciente.addActionListener(controlador);
-    this.botonEliminarPaciente.addActionListener(controlador);
-}
-
-public void agregarEventosVistaRecetas(ControladorVistaRecetas controlador){
-    this.botonVerTodasRecetas.addActionListener(controlador);
-    this.botonNuevaReceta.addActionListener(controlador);
-    this.botonEditarReceta.addActionListener(controlador);
-    this.botonEliminarReceta.addActionListener(controlador);
-}
-
-public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
-    this.botonVerTodasConsultas.addActionListener(controlador);
-    this.botonNuevaConsulta.addActionListener(controlador);
-    this.botonEditarConsulta.addActionListener(controlador);
-    this.botonEliminarConsulta.addActionListener(controlador);
-}
-
+    public long obtenerRecetaSeleccionada(){
+        int filaSeleccionada = this.tablaRecetas.getSelectedRow();
+        if(filaSeleccionada!=-1)return Long.parseLong(modeloTablaRecetas.getValueAt(filaSeleccionada, 0).toString());
+        return -1;
+    }
 
     public JTabbedPane getMedicamentos() {
         return Medicamentos;
@@ -246,7 +261,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
     public void setBotonVerTodosPacientes(JButton botonVerTodosPacientes) {
         this.botonVerTodosPacientes = botonVerTodosPacientes;
     }
-
 
     public JLabel getEtiquetaTitulo() {
         return etiquetaTitulo;
@@ -471,8 +485,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
     public void setTablaRecetas(JTable tablaRecetas) {
         this.tablaRecetas = tablaRecetas;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -576,11 +588,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         botonNuevoPaciente.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         botonNuevoPaciente.setText("Nuevo paciente");
         botonNuevoPaciente.setName("nuevo_paciente"); // NOI18N
-        botonNuevoPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNuevoPacienteActionPerformed(evt);
-            }
-        });
         panelSurPacientes.add(botonNuevoPaciente);
 
         botonEditarPaciente.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -636,11 +643,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         botonNuevoMedico.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         botonNuevoMedico.setText("Nuevo médico");
         botonNuevoMedico.setName("nuevo_medico"); // NOI18N
-        botonNuevoMedico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNuevoMedicoActionPerformed(evt);
-            }
-        });
         panelSurMedicos.add(botonNuevoMedico);
 
         botonEditarMedico.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -696,11 +698,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         botonNuevaConsulta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         botonNuevaConsulta.setText("Programar consulta");
         botonNuevaConsulta.setName("nueva_consulta"); // NOI18N
-        botonNuevaConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNuevaConsultaActionPerformed(evt);
-            }
-        });
         panelSurConsultas.add(botonNuevaConsulta);
 
         botonEditarConsulta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -756,11 +753,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
         botonNuevaReceta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         botonNuevaReceta.setText("Nueva receta");
         botonNuevaReceta.setName("nueva_receta"); // NOI18N
-        botonNuevaReceta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNuevaRecetaActionPerformed(evt);
-            }
-        });
         panelSurRecetas.add(botonNuevaReceta);
 
         botonEditarReceta.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -858,57 +850,6 @@ public void agregarEventosVistaConsultas(ControladorVistaConsultas controlador){
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void botonNuevoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoMedicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonNuevoMedicoActionPerformed
-
-    private void botonNuevaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaConsultaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonNuevaConsultaActionPerformed
-
-    private void botonNuevaRecetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaRecetaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonNuevaRecetaActionPerformed
-
-    private void botonNuevoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoPacienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonNuevoPacienteActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuPrincipal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane Medicamentos;

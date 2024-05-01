@@ -30,8 +30,6 @@ public class Receta {
         this.recomendaciones = recomendaciones;
     }
 
-    
-
     public long getId() {
         return id;
     }

@@ -3,16 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/kevin/Descargas/MiConsultorio/src/controladores/ControladorRegistroPaciente.java</file>
             <file>file:/home/kevin/Descargas/MiConsultorio/src/controladores/ControladorVistaConsultas.java</file>
-            <file>file:/home/kevin/Descargas/MiConsultorio/src/vistas/FormConsultaMedica.java</file>
-            <file>file:/home/kevin/Descargas/MiConsultorio/src/modelos/Medicamento.java</file>
             <file>file:/home/kevin/Descargas/MiConsultorio/src/controladores/ControladorVistaMedicos.java</file>
-            <file>file:/home/kevin/Descargas/MiConsultorio/src/modelos/Paciente.java</file>
-            <file>file:/home/kevin/Descargas/MiConsultorio/src/vistas/FormMedico.java</file>
-            <file>file:/home/kevin/Descargas/MiConsultorio/src/controladores/ControladorRegistroConsulta.java</file>
-            <file>file:/home/kevin/Descargas/MiConsultorio/src/controladores/ControladorRegistroMedico.java</file>
-            <file>file:/home/kevin/Descargas/MiConsultorio/src/vistas/FormPaciente.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/modelos/Receta.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/controladores/ControladorVistaRecetas.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/controladores/ControladorRegistroReceta.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/vistas/FormReceta.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/dao/DAODetalleReceta.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/dao/DAOReceta.java</file>
+            <file>file:/home/kevin/Descargas/MiConsultorio/src/vistas/MenuPrincipal.java</file>
         </group>
     </open-files>
 </project-private>
