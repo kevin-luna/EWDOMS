@@ -118,6 +118,7 @@ public class DAOMedico implements DAO<Long, Medico>{
                 int status = consulta.executeUpdate();
                 if(status>0){
                     ResultSet llavePrimaria =  consulta.getGeneratedKeys();
+                    llavePrimaria.next();
                     return llavePrimaria.getLong(1);
                 }
             } catch (SQLException ex) {

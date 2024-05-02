@@ -146,6 +146,7 @@ public class DAOPaciente implements DAO<Long, Paciente> {
                 int status = consulta.executeUpdate();
                 if(status>0){
                     ResultSet llavePrimaria =  consulta.getGeneratedKeys();
+                    llavePrimaria.next();
                     return llavePrimaria.getLong(1);
                 }
             } catch (SQLException ex) {
