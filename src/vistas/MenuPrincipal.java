@@ -76,7 +76,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public void cargarRecetas(ArrayList<Receta> recetas){
         modeloTablaRecetas.setRowCount(0);
         for (Receta receta : recetas) {
-            modeloTablaRecetas.addRow(new Object[]{receta.getId(), receta.getId(), receta.getDiagnostico(), receta.getSintomas(), receta.getRecomendaciones()});
+            modeloTablaRecetas.addRow(new Object[]{receta.getId(), receta.getId_consulta(), receta.getDiagnostico(), receta.getSintomas(), receta.getRecomendaciones()});
         }
     }
     

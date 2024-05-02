@@ -5,11 +5,9 @@
 package vistas;
 
 import controladores.ControladorRegistroReceta;
-import dao.DAOConsultaMedica;
-import dao.DAODetalleReceta;
-import dao.DAOMedicamento;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -27,85 +25,86 @@ import modelos.Receta;
  * @author amoel
  */
 public class FormReceta extends javax.swing.JFrame {
-    
+
     private boolean actualizar;
     private Receta receta;
     private ConsultaMedica consulta;
     private Medicamento medicamento;
     private DetalleReceta detalleReceta;
-    private DAOConsultaMedica daoConsultaMedica;
-    private DAOMedicamento dAOMedicamento;
-    private DAODetalleReceta daoDetalleReceta;
-    private HashMap<Long,ConsultaMedica> catalogoConsultas;
-    private HashMap<Long,String> catalogoMedicamentos;
-    private HashMap<Long,Medicamento> listaMedicamentosReceta;
-    private ArrayList<DetalleReceta> listaDetalleReceta;
-    private DefaultTableModel modeloListaMedicamentos;
-    
+    private HashMap<Long, ConsultaMedica> catalogoConsultas;
+    private HashMap<String, Long> catalogoMedicamentos;
+    private HashSet<String> listaMedicamentos;
+    private DefaultTableModel modeloTablaMedicamentos;
+
     /**
      * Creates new form RegistroReceta
      */
     public FormReceta() {
         initComponents();
-        modeloListaMedicamentos = (DefaultTableModel)tablaMedicamentos.getModel();
-        daoConsultaMedica = new DAOConsultaMedica();
-        dAOMedicamento = new DAOMedicamento();
-        daoDetalleReceta = new DAODetalleReceta();
-        //Despliega los medicamentos y las consultas dispinibles
-        for(Medicamento m : dAOMedicamento.consultar()){
+        modeloTablaMedicamentos = (DefaultTableModel) tablaMedicamentos.getModel();
+        catalogoConsultas = new HashMap<Long,ConsultaMedica>();
+        listaMedicamentos = new HashSet<String>();
+    }
+
+    public void cargarCatalogoMedicamentos(ArrayList<Medicamento> catalogoMedicamentos) {
+        for (Medicamento m : catalogoMedicamentos) {
             comboMedicamento.addItem(m.getNombre());
         }
-        
-        for(ConsultaMedica c: daoConsultaMedica.consultar()){
+    }
+
+    public void cargarCatalogoConsultas(ArrayList<ConsultaMedica> catalogoConsultas) {
+        for (ConsultaMedica c : catalogoConsultas) {
             comboConsulta.addItem(Long.toString(c.getId()));
+            this.catalogoConsultas.put(c.getId(), c);
         }
     }
-    
-    public void cargarReceta(Receta receta){
+
+    public void cargarReceta(Receta receta) {
         this.receta = receta;
         txtaDiagnostico.setText(receta.getDiagnostico());
         txtaSintomas.setText(receta.getSintomas());
         txtaRecomendaciones.setText(receta.getRecomendaciones());
     }
-    
-    public void cargarMedicamentos(ArrayList<Medicamento> medicamentos){
-        modeloListaMedicamentos.setRowCount(0);
-        for(Medicamento m : medicamentos){
-            modeloListaMedicamentos.addRow(new Object[]{m.getNombre()});
-        }
-    }
-    
-    public void obtenerMedicamentos(){
-        
-    }
-    
-    public void obtenerMedicamentoSeleccionadoCombo(){
-        comboMedicamento.getSelectedItem();
-    }
-    
-    public long obtenerMedicamentoSeleccionadoTabla(){
-        int filaSeleccionada = this.tablaMedicamentos.getSelectedRow();
-        if(filaSeleccionada!=-1)return Long.parseLong(modeloListaMedicamentos.getValueAt(filaSeleccionada, 0).toString());
-        return -1;
-    }
-    
-    public void agregarMedicamento(){
-        modeloListaMedicamentos.addRow(new Object[]{comboMedicamento.getSelectedItem()});
-    }
-    
-    public void eliminarMedicamento(){
-        int filaSeleccionada = tablaMedicamentos.getSelectedRow();
-        if(filaSeleccionada!=-1){
-            modeloListaMedicamentos.removeRow(filaSeleccionada);
+
+    public void cargarMedicamentos(ArrayList<Medicamento> medicamentos) {
+        modeloTablaMedicamentos.setRowCount(0);
+        for (Medicamento m : medicamentos) {
+            modeloTablaMedicamentos.addRow(new Object[]{m.getNombre()});
+            listaMedicamentos.add(m.getNombre());
         }
     }
 
-    public ArrayList<Medicamento> getListaMedicamentosReceta() {
-        
+    public HashSet<String> obtenerMedicamentosSeleccionados() {
+        return this.listaMedicamentos;
     }
-    
-    public Receta obtenerReceta(){
-        return receta = new Receta(obtenerIdConsulta(),obtenerDiagnostico(),obtenerSintomas(),obtenerRecomendaciones());
+
+    public String obtenerMedicamentoSeleccionadoCombo() {
+        return comboMedicamento.getSelectedItem().toString();
+    }
+
+    public String obtenerMedicamentoSeleccionadoTabla() {
+        int filaSeleccionada = this.tablaMedicamentos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            return modeloTablaMedicamentos.getValueAt(filaSeleccionada, 0).toString();
+        }
+        return null;
+    }
+
+    public void agregarMedicamento() {
+        modeloTablaMedicamentos.addRow(new Object[]{comboMedicamento.getSelectedItem()});
+    }
+
+    public void eliminarMedicamento() {
+        int filaSeleccionada = tablaMedicamentos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            modeloTablaMedicamentos.removeRow(filaSeleccionada);
+        }
+    }
+
+    //public ArrayList<Medicamento> getListaMedicamentosReceta() {
+    //}
+    public Receta obtenerReceta() {
+        return receta = new Receta(obtenerIdConsulta(), obtenerDiagnostico(), obtenerSintomas(), obtenerRecomendaciones());
     }
 
     public boolean getActualizar() {
@@ -126,8 +125,7 @@ public class FormReceta extends javax.swing.JFrame {
     }
 
     public Long obtenerIdConsulta() {
-        int pos = comboConsulta.getSelectedIndex();
-        return catalogoConsultas.get(pos).getId();
+        return Long.parseLong(this.comboConsulta.getSelectedItem().toString());
     }
 
     public String obtenerRecomendaciones() {
@@ -148,7 +146,9 @@ public class FormReceta extends javax.swing.JFrame {
     }
 
     public void limpiarIdConsulta() {
-        comboConsulta.setSelectedIndex(0);
+        if (comboConsulta.getItemCount() > 0) {
+            comboConsulta.setSelectedIndex(0);
+        }
     }
 
     public void limpiarRecomendaciones() {
@@ -156,11 +156,13 @@ public class FormReceta extends javax.swing.JFrame {
     }
 
     public void limpiarComboMedicamento() {
-        comboMedicamento.setSelectedIndex(0);
+        if (comboMedicamento.getItemCount() > 0) {
+            comboMedicamento.setSelectedIndex(0);
+        }
     }
-    
-    public void limpiarMedicamentos(){
-        modeloListaMedicamentos.setRowCount(0);
+
+    public void limpiarMedicamentos() {
+        modeloTablaMedicamentos.setRowCount(0);
     }
 
 // Método para limpiar todos los componentes
@@ -171,6 +173,9 @@ public class FormReceta extends javax.swing.JFrame {
         limpiarRecomendaciones();
         limpiarComboMedicamento();
         limpiarMedicamentos();
+        if(comboMedicamento.getItemCount()>0)comboMedicamento.removeAllItems();
+        if(comboConsulta.getItemCount()>0)comboConsulta.removeAllItems();
+        this.listaMedicamentos.clear();
     }
 
     public boolean tieneCamposVacios() {
@@ -179,8 +184,8 @@ public class FormReceta extends javax.swing.JFrame {
                 || txtaRecomendaciones.getText().isEmpty()
                 || tablaMedicamentos.getModel().getRowCount() == 0;
     }
-    
-    public void agregarEventos(ControladorRegistroReceta controlador){
+
+    public void agregarEventos(ControladorRegistroReceta controlador) {
         this.btnAgregarMedicamento.addActionListener(controlador);
         this.btnEliminarMedicamento.addActionListener(controlador);
         this.btnAgregar.addActionListener(controlador);
@@ -203,44 +208,12 @@ public class FormReceta extends javax.swing.JFrame {
         this.medicamento = medicamento;
     }
 
-    public DAOConsultaMedica getDaoConsultaMedica() {
-        return daoConsultaMedica;
-    }
-
-    public void setDaoConsultaMedica(DAOConsultaMedica daoConsultaMedica) {
-        this.daoConsultaMedica = daoConsultaMedica;
-    }
-
-    public DAOMedicamento getdAOMedicamento() {
-        return dAOMedicamento;
-    }
-
-    public void setdAOMedicamento(DAOMedicamento dAOMedicamento) {
-        this.dAOMedicamento = dAOMedicamento;
-    }
-
-    public ArrayList<ConsultaMedica> getListaConsultas() {
-        return catalogoConsultas;
-    }
-
-    public void setListaConsultas(ArrayList<ConsultaMedica> listaConsultas) {
-        this.catalogoConsultas = listaConsultas;
-    }
-
-    public ArrayList<Medicamento> getListaMedicamentos() {
-        return catalogoMedicamentos;
-    }
-
-    public void setListaMedicamentos(ArrayList<Medicamento> listaMedicamentos) {
-        this.catalogoMedicamentos = listaMedicamentos;
-    }
-
     public DefaultTableModel getModeloListaMedicamentos() {
-        return modeloListaMedicamentos;
+        return modeloTablaMedicamentos;
     }
 
     public void setModeloListaMedicamentos(DefaultTableModel modeloListaMedicamentos) {
-        this.modeloListaMedicamentos = modeloListaMedicamentos;
+        this.modeloTablaMedicamentos = modeloListaMedicamentos;
     }
 
     public JButton getBtnAgregar() {
@@ -386,8 +359,6 @@ public class FormReceta extends javax.swing.JFrame {
     public void setTxaSintomas(JTextArea txaSintomas) {
         this.txtaSintomas = txaSintomas;
     }
-    
-    
 
     public JTextArea getDiagnostico() {
         return txtaDiagnostico;

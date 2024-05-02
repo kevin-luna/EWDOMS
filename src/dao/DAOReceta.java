@@ -83,26 +83,30 @@ public class DAOReceta implements DAO<Long, Receta> {
     }
 
     @Override
-    public boolean insertar(Receta receta) {
+    public long insertar(Receta receta) {
         Connection conexion = conector.iniciar();
         if (conexion != null) {
             String sql = "INSERT INTO receta (id_consulta, diagnostico, sintomas, recomendaciones) VALUES (?, ?, ?, ?)";
             try {
-                PreparedStatement consulta = conexion.prepareStatement(sql);
+                PreparedStatement consulta = conexion.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                 consulta.setLong(1, receta.getId_consulta());
                 consulta.setString(2, receta.getDiagnostico());
                 consulta.setString(3, receta.getSintomas());
                 consulta.setString(4, receta.getRecomendaciones());
-                consulta.executeUpdate();
-                return true;
+                int status = consulta.executeUpdate();
+                if(status>0){
+                    ResultSet llavePrimaria = consulta.getGeneratedKeys();
+                    llavePrimaria.next();
+                    return llavePrimaria.getLong(1);
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                return false;
+                return -1;
             } finally {
                 conector.terminar();
             }
         }
-        return false;
+        return -1;
     }
 
     @Override

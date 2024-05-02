@@ -47,7 +47,7 @@ public class ControladorRegistroPaciente implements ActionListener {
                         menuRegistro.obtenerTelefono(),
                         menuRegistro.obtenerCorreo()
                 );
-                boolean status ;
+                boolean status,statusInsercion;
                 String accion, accion2;
                 if(menuRegistro.getActualizar()){
                     accion="actualizó";
@@ -56,7 +56,7 @@ public class ControladorRegistroPaciente implements ActionListener {
                 }else{
                     accion="registró";
                     accion2="registrar";
-                    status = daoPaciente.insertar(paciente);
+                    status = daoPaciente.insertar(paciente)!=-1;
                 }
                 if (status) {
                     JOptionPane.showMessageDialog(menuRegistro, "Se "+accion+" el paciente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);

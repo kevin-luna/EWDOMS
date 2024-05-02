@@ -187,7 +187,7 @@ public class FormPaciente extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo paciente");
 
         jLabel1.setBackground(new java.awt.Color(51, 102, 255));

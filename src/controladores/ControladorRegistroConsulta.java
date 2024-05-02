@@ -46,7 +46,7 @@ public class ControladorRegistroConsulta implements ActionListener {
                 }else{
                     accion = "registró";
                     accion2="registrar";
-                    status = daoConsulta.insertar(consulta);
+                    status = daoConsulta.insertar(consulta)!=-1;
                 }
                 if (status) {
                     JOptionPane.showMessageDialog(menuRegistro, "La consulta se "+accion+" exitosamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);

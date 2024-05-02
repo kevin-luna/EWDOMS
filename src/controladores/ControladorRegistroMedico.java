@@ -41,7 +41,7 @@ public class ControladorRegistroMedico implements ActionListener {
                 }else{
                     accion = "registró";
                     accion2 = "registrar";
-                    status = daoMedico.insertar(menuRegistro.obtenerMedico());
+                    status = daoMedico.insertar(menuRegistro.obtenerMedico())!=-1;
                 }
                 if (status) {
                     JOptionPane.showMessageDialog(menuRegistro, "Se "+accion+" el médico.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);

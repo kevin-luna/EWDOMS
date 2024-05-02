@@ -105,7 +105,7 @@ public class DAOMedico implements DAO<Long, Medico>{
     }
 
     @Override
-    public boolean insertar(Medico objeto) {
+    public long insertar(Medico objeto) {
         Connection conexion = conector.iniciar();
         if(conexion!=null){
             String sql = "INSERT INTO medico (nombre,especialidad,cedula,instituto) VALUES(?,?,?,?)";
@@ -115,16 +115,19 @@ public class DAOMedico implements DAO<Long, Medico>{
                 consulta.setString(2, objeto.getEspecialidad());
                 consulta.setString(3, objeto.getCedula());
                 consulta.setString(4, objeto.getInstituto());
-                consulta.execute();
-                return true;
+                int status = consulta.executeUpdate();
+                if(status>0){
+                    ResultSet llavePrimaria =  consulta.getGeneratedKeys();
+                    return llavePrimaria.getLong(1);
+                }
             } catch (SQLException ex) {
                 System.out.println("Error SQL");
-                return false;
+                return -1;
             }finally{
                 conector.terminar();
             }
         }
-        return false;
+        return -1;
     }
 
     @Override

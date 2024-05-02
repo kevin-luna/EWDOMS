@@ -120,7 +120,7 @@ public class FormConsultaMedica extends javax.swing.JFrame {
         comboPaciente = new javax.swing.JComboBox<>();
         comboMedico = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nueva consulta");
         setResizable(false);
 

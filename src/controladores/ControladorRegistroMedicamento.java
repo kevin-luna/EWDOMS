@@ -46,7 +46,7 @@ public class ControladorRegistroMedicamento implements ActionListener{
                 }else{
                     accion = "registró";
                     accion2 = "actualizar";
-                    status = daoMedicamento.insertar(medicamento);
+                    status = daoMedicamento.insertar(medicamento)!=-1;
                 }
                 if(status){
                     JOptionPane.showMessageDialog(menuRegistro, "Se "+accion+" el medicamento.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);

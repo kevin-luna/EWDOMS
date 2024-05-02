@@ -107,7 +107,7 @@ public class DAOMedicamento implements DAO<Long, Medicamento> {
     }
 
     @Override
-    public boolean insertar(Medicamento medicamento) {
+    public long insertar(Medicamento medicamento) {
         Connection conexion = conector.iniciar();
         if (conexion != null) {
             String sql = "INSERT INTO medicamento (nombre, existencia) VALUES (?, ?)";
@@ -115,16 +115,19 @@ public class DAOMedicamento implements DAO<Long, Medicamento> {
                 PreparedStatement consulta = conexion.prepareStatement(sql);
                 consulta.setString(1, medicamento.getNombre());
                 consulta.setInt(2, medicamento.getExistencia());
-                consulta.executeUpdate();
-                return true;
+                int status = consulta.executeUpdate();
+                if(status>0){
+                    ResultSet llavePrimaria =  consulta.getGeneratedKeys();
+                    return llavePrimaria.getLong(1);
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                return false;
+                return -1;
             } finally {
                 conector.terminar();
             }
         }
-        return false;
+        return -1;
     }
 
     @Override

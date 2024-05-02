@@ -81,25 +81,29 @@ public class DAOConsultaMedica implements DAO<Long, ConsultaMedica> {
     }
 
     @Override
-    public boolean insertar(ConsultaMedica consultaMedica) {
+    public long insertar(ConsultaMedica consultaMedica) {
         Connection conexion = conector.iniciar();
         if (conexion != null) {
             String sql = "INSERT INTO consulta_medica (id_paciente, id_medico, fecha) VALUES (?, ?,?)";
             try {
-                PreparedStatement consulta = conexion.prepareStatement(sql);
+                PreparedStatement consulta = conexion.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
                 consulta.setLong(1, consultaMedica.getIdPaciente());
                 consulta.setLong(2, consultaMedica.getIdMedico());
                 consulta.setString(3, consultaMedica.getFecha());
-                consulta.executeUpdate();
-                return true;
+                
+                int status = consulta.executeUpdate();
+                if(status>0){
+                    ResultSet llavePrimaria =  consulta.getGeneratedKeys();
+                    return llavePrimaria.getLong(1);
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                return false;
+                return -1;
             } finally {
                 conector.terminar();
             }
         }
-        return false;
+        return -1;
     }
 
     @Override
