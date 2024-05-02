@@ -141,7 +141,7 @@ public class DAOReceta implements DAO<Long, Receta> {
                 consulta.setString(3, receta.getSintomas());
                 consulta.setString(4, receta.getRecomendaciones());
                 consulta.setLong(5, id);
-                consulta.executeUpdate();
+                if(consulta.executeUpdate()>0);
                 return true;
             } catch (SQLException ex) {
                 ex.printStackTrace();

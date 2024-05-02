@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import modelos.DetalleReceta;
 import modelos.Medicamento;
+import modelos.Receta;
 import vistas.FormReceta;
 
 public class ControladorRegistroReceta implements ActionListener {
@@ -27,8 +28,9 @@ public class ControladorRegistroReceta implements ActionListener {
     private HashSet<String> medicamentosGuardados;
     private HashSet<String> medicamentosAgregados;
     private HashSet<String> medicamentosEliminados;
-    private HashMap<String,Long> catalogoMedicamentos;
+    private HashMap<String, Long> catalogoMedicamentos;
     private int medicamentoSeleccionado;
+    private long ultimaReceta;
 
     public ControladorRegistroReceta(FormReceta menuRegistro) {
         this.menuRegistro = menuRegistro;
@@ -50,17 +52,62 @@ public class ControladorRegistroReceta implements ActionListener {
     public void guardarReceta() {
         long idReceta = daoReceta.insertar(menuRegistro.obtenerReceta());
         if (idReceta != -1) {
-            this.catalogoMedicamentos = new HashMap<String,Long>();
+            this.catalogoMedicamentos = new HashMap<String, Long>();
             guardarMedicamentos(idReceta);
             JOptionPane.showMessageDialog(menuRegistro, "Se registró la receta correctamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-            //menuRegistro.limpiar();
+            menuRegistro.dispose();
         } else {
-            JOptionPane.showMessageDialog(menuRegistro, "Se registró la receta correctamente.", "Registro exitoso", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(menuRegistro, "Ocurrió un error al registrar la receta.", "Error de registro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void actualizarReceta() {
+        Receta receta = menuRegistro.obtenerReceta();
+        ultimaReceta = receta.getId();
+        boolean status = daoReceta.actualizar(ultimaReceta, receta);
+        if (status) {
+            this.catalogoMedicamentos = new HashMap<String, Long>();
+            actualizarMedicamentos(ultimaReceta);
+            JOptionPane.showMessageDialog(menuRegistro, "Se actualizó la receta correctamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+            consultarMedicamentosGuardados();
+        } else {
+            JOptionPane.showMessageDialog(menuRegistro, "No se pudo actualizar la receta.", "Error al actualizar", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void actualizarMedicamentos(long idReceta) {
+        for (Medicamento medicamento : daoMedicamento.consultar()) {
+            this.catalogoMedicamentos.put(medicamento.getNombre(), medicamento.getId());
+        }
+        System.out.println("Medicamentos agregados");
+        for (String s : medicamentosAgregados) {
+            System.out.println(s);
+        }
+        System.out.println("Medicamentos guardados");
+        for (String s : medicamentosGuardados) {
+            System.out.println(s);
+        }
+        System.out.println("Medicamentos Eliminados");
+        for (String s : medicamentosEliminados) {
+            System.out.println(s);
+        }
+        for (String nombreMedicamento : medicamentosAgregados) {
+            if (catalogoMedicamentos.containsKey(nombreMedicamento)) {
+                if (!medicamentosGuardados.contains(nombreMedicamento)) {
+                    daoDetalleReceta.insertar(new DetalleReceta(idReceta, catalogoMedicamentos.get(nombreMedicamento)));
+                }
+            }
+        }
+        
+        for(String nombreMedicamento:medicamentosEliminados){
+            if (medicamentosGuardados.contains(nombreMedicamento)) {
+                    daoDetalleReceta.eliminar(idReceta, catalogoMedicamentos.get(nombreMedicamento));
+            }
         }
     }
 
     public void guardarMedicamentos(long idReceta) {
-        for(Medicamento medicamento : daoMedicamento.consultar()){
+        for (Medicamento medicamento : daoMedicamento.consultar()) {
             this.catalogoMedicamentos.put(medicamento.getNombre(), medicamento.getId());
         }
         for (String nombreMedicamento : medicamentosAgregados) {
@@ -74,6 +121,9 @@ public class ControladorRegistroReceta implements ActionListener {
         if (!medicamentosGuardados.contains(medicamentoSeleccionado) && !medicamentosAgregados.contains(medicamentoSeleccionado)) {
             menuRegistro.agregarMedicamento();
             medicamentosAgregados.add(medicamentoSeleccionado);
+            if (medicamentosEliminados.contains(medicamentoSeleccionado)) {
+                medicamentosEliminados.remove(medicamentoSeleccionado);
+            }
         }
     }
 
@@ -82,8 +132,9 @@ public class ControladorRegistroReceta implements ActionListener {
         if (medicamentoSeleccionado != null && (medicamentosAgregados.contains(medicamentoSeleccionado) || medicamentosGuardados.contains(medicamentoSeleccionado))) {
             System.out.println("Eliminando medicamento");
             menuRegistro.eliminarMedicamento();
-            medicamentosGuardados.remove(medicamentoSeleccionado);
+            //medicamentosGuardados.remove(medicamentoSeleccionado);
             medicamentosAgregados.remove(medicamentoSeleccionado);
+            medicamentosEliminados.add(medicamentoSeleccionado);
         }
     }
 
@@ -102,7 +153,11 @@ public class ControladorRegistroReceta implements ActionListener {
                     JOptionPane.showMessageDialog(menuRegistro, "No pueden quedar campos vacíos", "Atención", JOptionPane.WARNING_MESSAGE);
                     break;
                 } else {
-                    guardarReceta();
+                    if (menuRegistro.getActualizar()) {
+                        actualizarReceta();
+                    } else {
+                        guardarReceta();
+                    }
                 }
                 break;
             case "agregar_medicamento":

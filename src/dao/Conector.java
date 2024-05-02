@@ -12,9 +12,9 @@ import java.sql.SQLException;
  */
 public class Conector {
     private static final String bd = "consultorio_medico";
-    private static final String usuario = "root";
-    private static final String password = "root";
-    private static final String host = "localhost";
+    private static final String usuario = "wero";
+    private static final String password = "ing_s0ftware";
+    private static final String host = "papasoft-db-testing-2.mysql.database.azure.com";
     private static final String puerto = "3306";
     private static String url;
     private Connection conexion;

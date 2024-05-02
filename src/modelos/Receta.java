@@ -70,6 +70,12 @@ public class Receta {
     public void setRecomendaciones(String recomendaciones) {
         this.recomendaciones = recomendaciones;
     }
+
+    @Override
+    public String toString() {
+        return "Receta{" + "id=" + id + ", id_consulta=" + id_consulta + ", diagnostico=" + diagnostico + ", sintomas=" + sintomas + ", recomendaciones=" + recomendaciones + '}';
+    }
+    
     
     
 }

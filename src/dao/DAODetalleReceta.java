@@ -96,7 +96,7 @@ public class DAODetalleReceta {
     public boolean eliminar(Long id_receta, Long id_medicamento) {
         Connection conexion = conector.iniciar();
         if (conexion != null) {
-            String sql = "DELETE FROM medicamento WHERE id_receta = ? AND id_medicamento = ?";
+            String sql = "DELETE FROM detalle_receta WHERE id_receta = ? AND id_medicamento = ?";
             try {
                 PreparedStatement consulta = conexion.prepareStatement(sql);
                 consulta.setLong(1, id_receta);

@@ -8,6 +8,7 @@ import controladores.ControladorRegistroReceta;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -64,6 +65,15 @@ public class FormReceta extends javax.swing.JFrame {
         txtaDiagnostico.setText(receta.getDiagnostico());
         txtaSintomas.setText(receta.getSintomas());
         txtaRecomendaciones.setText(receta.getRecomendaciones());
+        long idConsulta = receta.getId_consulta();
+        ComboBoxModel<String> modelo = comboConsulta.getModel();
+        for (int i = 0; i < modelo.getSize(); i++) {
+            String valor = modelo.getElementAt(i);
+            if(valor == null ? Long.toString(idConsulta) == null : valor.equals(Long.toString(idConsulta))){
+                comboConsulta.setSelectedIndex(i);
+                break;
+            }
+        }
     }
 
     public void cargarMedicamentos(ArrayList<Medicamento> medicamentos) {
@@ -104,7 +114,7 @@ public class FormReceta extends javax.swing.JFrame {
     //public ArrayList<Medicamento> getListaMedicamentosReceta() {
     //}
     public Receta obtenerReceta() {
-        return receta = new Receta(obtenerIdConsulta(), obtenerDiagnostico(), obtenerSintomas(), obtenerRecomendaciones());
+        return receta = new Receta(this.receta.getId(),obtenerIdConsulta(), obtenerDiagnostico(), obtenerSintomas(), obtenerRecomendaciones());
     }
 
     public boolean getActualizar() {
