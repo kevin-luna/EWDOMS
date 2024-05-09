@@ -35,15 +35,12 @@ public class ControladorVistaMedicamentos implements ActionListener{
         controladorRegistroMedicamento = new ControladorRegistroMedicamento(menuRegistro);
         menuRegistro.agregarEventos(controladorRegistroMedicamento);
     }
+   
 
     public void actualizarVista() {
         System.out.println("Solicitando la lista de medicamentos al servidor...");
         listaMedicamentos = daoMedicamento.consultar();
-        DefaultTableModel modeloTabla = (DefaultTableModel) menu.getTablaMedicamentos().getModel();
-        modeloTabla.setRowCount(0);
-        for (Medicamento medicamento : listaMedicamentos) {
-            modeloTabla.addRow(new Object[]{medicamento.getId(), medicamento.getNombre(), medicamento.getExistencia()});
-        }
+        menu.cargarMedicamentos(listaMedicamentos);
     }
 
     public void eliminarMedicamento() {
@@ -75,7 +72,6 @@ public class ControladorVistaMedicamentos implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Boton");
         JButton boton = (JButton) e.getSource();
         switch (boton.getName()) {
             case "todos_medicamentos":

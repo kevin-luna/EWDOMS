@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import modelos.Medicamento;
 import modelos.Receta;
 
 /**
@@ -26,12 +27,15 @@ import modelos.Receta;
 public class MenuPrincipal extends javax.swing.JFrame {
 
     private DefaultTableModel modeloTablaRecetas;
+    private DefaultTableModel modeloTablaMedicamentos;
+
     /**
      * Creates new form MenuPrincipal
      */
     public MenuPrincipal() {
         initComponents();
-        this.modeloTablaRecetas = (DefaultTableModel)this.tablaRecetas.getModel();
+        this.modeloTablaRecetas = (DefaultTableModel) this.tablaRecetas.getModel();
+        this.modeloTablaMedicamentos = (DefaultTableModel) this.tablaMedicamentos.getModel();
     }
 
     public void agregarEventos() {
@@ -72,17 +76,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.botonEditarConsulta.addActionListener(controlador);
         this.botonEliminarConsulta.addActionListener(controlador);
     }
-    
-    public void cargarRecetas(ArrayList<Receta> recetas){
+
+    public void cargarRecetas(ArrayList<Receta> recetas) {
         modeloTablaRecetas.setRowCount(0);
         for (Receta receta : recetas) {
             modeloTablaRecetas.addRow(new Object[]{receta.getId(), receta.getId_consulta(), receta.getDiagnostico(), receta.getSintomas(), receta.getRecomendaciones()});
         }
     }
-    
-    public long obtenerRecetaSeleccionada(){
+
+    public void cargarMedicamentos(ArrayList<Medicamento> medicamentos) {
+        modeloTablaMedicamentos.setRowCount(0);
+        for (Medicamento medicamento : medicamentos) {
+            modeloTablaMedicamentos.addRow(new Object[]{medicamento.getId(), medicamento.getNombre(), medicamento.getExistencia()});
+        }
+    }
+
+    public long obtenerRecetaSeleccionada() {
         int filaSeleccionada = this.tablaRecetas.getSelectedRow();
-        if(filaSeleccionada!=-1)return Long.parseLong(modeloTablaRecetas.getValueAt(filaSeleccionada, 0).toString());
+        if (filaSeleccionada != -1) {
+            return Long.parseLong(modeloTablaRecetas.getValueAt(filaSeleccionada, 0).toString());
+        }
         return -1;
     }
 
