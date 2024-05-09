@@ -124,9 +124,9 @@ public class FormConsultaMedica extends javax.swing.JFrame {
         setTitle("Nueva consulta");
         setResizable(false);
 
-        jLabel12.setText("ID Medico:");
+        jLabel12.setText("Medico:");
 
-        jLabel3.setText("ID Paciente:");
+        jLabel3.setText("Paciente:");
 
         jLabel1.setBackground(new java.awt.Color(51, 102, 255));
         jLabel1.setFont(new java.awt.Font("Lucida Sans", 1, 24)); // NOI18N
@@ -149,7 +149,7 @@ public class FormConsultaMedica extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+                .addContainerGap(56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAgregar)

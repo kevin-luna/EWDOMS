@@ -27,7 +27,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jLabel1" alignment="0" pref="451" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <EmptySpace pref="56" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
@@ -92,12 +92,12 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ID Medico:"/>
+        <Property name="text" type="java.lang.String" value="Medico:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ID Paciente:"/>
+        <Property name="text" type="java.lang.String" value="Paciente:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
