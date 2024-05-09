@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import modelos.Medicamento;
 import vistas.FormMedicamento;
 
@@ -16,7 +19,7 @@ import vistas.FormMedicamento;
  *
  * @author kevin
  */
-public class ControladorRegistroMedicamento implements ActionListener{
+public class ControladorRegistroMedicamento implements ActionListener, ChangeListener{
 
     Medicamento medicamento;
     DAOMedicamento daoMedicamento;
@@ -60,6 +63,13 @@ public class ControladorRegistroMedicamento implements ActionListener{
                 menuRegistro.dispose();
                 break;
         }
+    }
+    
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        JSpinner spinnerCantidad = (JSpinner)e.getSource();
+        int valor = (int)spinnerCantidad.getValue();
+        if(valor<=0)spinnerCantidad.setValue(1);
     }
     
 }

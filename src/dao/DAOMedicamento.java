@@ -112,7 +112,7 @@ public class DAOMedicamento implements DAO<Long, Medicamento> {
         if (conexion != null) {
             String sql = "INSERT INTO medicamento (nombre, existencia) VALUES (?, ?)";
             try {
-                PreparedStatement consulta = conexion.prepareStatement(sql);
+                PreparedStatement consulta = conexion.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
                 consulta.setString(1, medicamento.getNombre());
                 consulta.setInt(2, medicamento.getExistencia());
                 int status = consulta.executeUpdate();

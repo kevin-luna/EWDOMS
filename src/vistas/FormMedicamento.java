@@ -25,7 +25,7 @@ public class FormMedicamento extends javax.swing.JFrame {
     public void cargarMedicamento(Medicamento medicamento){
         this.medicamento = medicamento;
         txtNombre.setText(medicamento.getNombre());
-        txtExistencia.setText(Integer.toString(medicamento.getExistencia()));
+        spinnerExistencia.setValue(medicamento.getExistencia());
     }
     
     public Medicamento obtenerMedicamento(){
@@ -44,12 +44,12 @@ public class FormMedicamento extends javax.swing.JFrame {
     
     // Método para obtener el contenido de txtExistencia
     public int obtenerContenidoExistencia() {
-        return Integer.parseInt(txtExistencia.getText());
+        return (int)spinnerExistencia.getValue();
     }
 
     // Método para limpiar el contenido de txtExistencia
     public void limpiarExistencia() {
-        txtExistencia.setText("");
+        spinnerExistencia.setValue(1);
     }
 
 
@@ -65,7 +65,7 @@ public class FormMedicamento extends javax.swing.JFrame {
     
     
     public boolean tieneCamposVacios(){
-        return txtNombre.getText().isEmpty() || txtExistencia.getText().isEmpty();
+        return txtNombre.getText().isEmpty() || (int)spinnerExistencia.getValue() == 0;
     }
     
     public void limpiar(){
@@ -77,6 +77,7 @@ public class FormMedicamento extends javax.swing.JFrame {
     public void agregarEventos(ControladorRegistroMedicamento controlador){
         this.botonGuardar.addActionListener(controlador);
         this.botonCancelar.addActionListener(controlador);
+        this.spinnerExistencia.addChangeListener(controlador);
     }
     
 
@@ -92,10 +93,10 @@ public class FormMedicamento extends javax.swing.JFrame {
         etiquetaTitulo = new javax.swing.JLabel();
         botonGuardar = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
-        txtExistencia = new javax.swing.JTextField();
         etiquetaExistencia = new javax.swing.JLabel();
         etiquetaNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
+        spinnerExistencia = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo medicamento");
@@ -118,6 +119,8 @@ public class FormMedicamento extends javax.swing.JFrame {
 
         etiquetaNombre.setText("Nombre:");
 
+        spinnerExistencia.setValue(1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,7 +136,7 @@ public class FormMedicamento extends javax.swing.JFrame {
                         .addGap(123, 123, 123)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                            .addComponent(txtExistencia)))
+                            .addComponent(spinnerExistencia)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(botonGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -150,8 +153,8 @@ public class FormMedicamento extends javax.swing.JFrame {
                     .addComponent(etiquetaNombre))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(etiquetaExistencia))
+                    .addComponent(etiquetaExistencia)
+                    .addComponent(spinnerExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardar)
@@ -168,7 +171,7 @@ public class FormMedicamento extends javax.swing.JFrame {
     private javax.swing.JLabel etiquetaExistencia;
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel etiquetaTitulo;
-    public javax.swing.JTextField txtExistencia;
+    private javax.swing.JSpinner spinnerExistencia;
     public javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 

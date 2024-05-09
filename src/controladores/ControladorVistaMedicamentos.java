@@ -20,7 +20,7 @@ import vistas.FormMedicamento;
  *
  * @author kevin
  */
-public class ControladorVistaMedicamentos implements ActionListener {
+public class ControladorVistaMedicamentos implements ActionListener{
 
     private MenuPrincipal menu;
     private DAOMedicamento daoMedicamento;
