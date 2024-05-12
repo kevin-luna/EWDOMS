@@ -4,10 +4,11 @@
  */
 package dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelos.Usuario;
@@ -23,17 +24,35 @@ public class DAOUsuario {
         this.conector = new Conector();
     }
     
-    public boolean registrarUsuario(Usuario usuario){
+    public ArrayList<Usuario> consultarUsuarios(){
+        ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
         try {
             Connection conexion = conector.iniciar();
-            String sql = "INSERT INTO usuario VALUES(?,?)";
-            PreparedStatement consulta = conexion.prepareStatement(sql);
-            consulta.setString(1, usuario.getNombre());
-            consulta.setString(2, usuario.getClaveAcceso());
-            int status = consulta.executeUpdate();
-            if(status>0){
-                return true;
+            String sql = "{call TraerTodosLosUsuarios()}";
+            CallableStatement consulta = conexion.prepareCall(sql);
+            consulta.execute();
+            ResultSet coincidencias = consulta.getResultSet();
+            while(coincidencias.next()){
+                listaUsuarios.add(new Usuario(coincidencias.getString("nombre"),coincidencias.getInt("administrador")));
             }
+            return listaUsuarios;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    
+    public boolean consultarPrivilegio(String nombre){
+        try {
+            Connection conexion = conector.iniciar();
+            String sql = "{call ObtenerPrivilegiosUsuario(?)}";
+            CallableStatement consulta = conexion.prepareCall(sql);
+            consulta.setString(1, nombre);
+            consulta.execute();
+            ResultSet coincidencias = consulta.getResultSet();
+            
+            if(coincidencias.next() && coincidencias.getInt("administrador")==1) return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -41,21 +60,54 @@ public class DAOUsuario {
         return false;
     }
     
-    public boolean iniciarSesion(Usuario usuario){
+    public StatusConsulta insertar(Usuario usuario){
         try {
             Connection conexion = conector.iniciar();
-            String sql = "SELECT nombre FROM usuario WHERE nombre = ? AND clave_acceso = ?";
-            PreparedStatement consulta = conexion.prepareStatement(sql);
+            String sql = "{call InsertarUsuario(?,?,?)}";
+            CallableStatement consulta = conexion.prepareCall(sql);
             consulta.setString(1, usuario.getNombre());
             consulta.setString(2, usuario.getClaveAcceso());
-            ResultSet coincidencias = consulta.executeQuery();
-            if(coincidencias.next()){
-                return true;
-            }
+            consulta.setInt(3, usuario.isAdministrador());
+            consulta.execute();
+            ResultSet status = consulta.getResultSet();
+            if(status.next()) return new StatusConsulta(status.getInt("status"),status.getString("mensaje"));
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return StatusConsulta.ERROR_SQL;
+        }
+        return StatusConsulta.ERROR_OPERACION;
+    }
+    
+    public boolean eliminar(String nombre){
+        try {
+            Connection conexion = conector.iniciar();
+            String sql = "{call EliminarUsuario(?)}";
+            CallableStatement consulta = conexion.prepareCall(sql);
+            consulta.setString(1, nombre);
+            if(consulta.executeUpdate()>0)return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return false;
+    }
+    
+    public StatusConsulta iniciarSesion(Usuario usuario){
+        try {
+            Connection conexion = conector.iniciar();
+            String sql = "{call IniciarSesion(?,?)}";
+            CallableStatement consulta = conexion.prepareCall(sql);
+            consulta.setString(1, usuario.getNombre());
+            consulta.setString(2, usuario.getClaveAcceso());
+            consulta.execute();
+            ResultSet coincidencias = consulta.getResultSet();
+            if(coincidencias.next()){
+                return new StatusConsulta(coincidencias.getInt("status"), coincidencias.getString("mensaje"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return StatusConsulta.ERROR_SQL;
+        }
+        return StatusConsulta.ERROR_OPERACION;
     }
 }

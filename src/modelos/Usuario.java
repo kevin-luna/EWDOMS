@@ -17,11 +17,18 @@ public class Usuario {
 
     private String nombre;
     private String claveAcceso;
+    private int administrador;
 
     public Usuario(String nombre, String claveAcceso) {
         this.nombre = nombre;
         hashClave(claveAcceso);
     }
+
+    public Usuario(String nombre, int administrador) {
+        this.nombre = nombre;
+        this.administrador = administrador;
+    }
+    
 
     public String getNombre() {
         return nombre;
@@ -37,6 +44,14 @@ public class Usuario {
 
     public void setClaveAcceso(String contraseña) {
         hashClave(claveAcceso);
+    }
+
+    public int isAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(int administrador) {
+        this.administrador = administrador;
     }
 
     private void hashClave(String claveAcceso) {
