@@ -53,7 +53,6 @@ public class ControladorRegistroReceta implements ActionListener {
         long idReceta = daoReceta.insertar(menuRegistro.obtenerReceta());
         if (idReceta != -1) {
             this.catalogoMedicamentos = new HashMap<String, Long>();
-            guardarMedicamentos(idReceta);
             JOptionPane.showMessageDialog(menuRegistro, "Se registró la receta correctamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
             menuRegistro.dispose();
         } else {

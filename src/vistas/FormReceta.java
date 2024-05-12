@@ -111,10 +111,8 @@ public class FormReceta extends javax.swing.JFrame {
         }
     }
 
-    //public ArrayList<Medicamento> getListaMedicamentosReceta() {
-    //}
     public Receta obtenerReceta() {
-        return receta = new Receta(this.receta.getId(),obtenerIdConsulta(), obtenerDiagnostico(), obtenerSintomas(), obtenerRecomendaciones());
+        return receta = new Receta(obtenerIdConsulta(), obtenerDiagnostico(), obtenerSintomas(), obtenerRecomendaciones());
     }
 
     public boolean getActualizar() {
@@ -422,6 +420,8 @@ public class FormReceta extends javax.swing.JFrame {
         txtaRecomendaciones = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMedicamentos = new javax.swing.JTable();
+        botonAumentar = new javax.swing.JButton();
+        botonDisminuir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Información de la receta");
@@ -471,10 +471,14 @@ public class FormReceta extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Medicamentos"
+                "Medicamento", "Cantidad"
             }
         ));
         jScrollPane1.setViewportView(tablaMedicamentos);
+
+        botonAumentar.setText("Aumentar cantidad");
+
+        botonDisminuir.setText("Disminuir cantidad");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -500,7 +504,9 @@ public class FormReceta extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(comboMedicamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnAgregarMedicamento, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                                        .addComponent(btnEliminarMedicamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                        .addComponent(btnEliminarMedicamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(botonAumentar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(botonDisminuir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addGap(184, 184, 184))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -552,7 +558,11 @@ public class FormReceta extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnAgregarMedicamento)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnEliminarMedicamento))
+                                .addComponent(btnEliminarMedicamento)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonAumentar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonDisminuir))
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(127, 158, Short.MAX_VALUE))
@@ -569,6 +579,8 @@ public class FormReceta extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonAumentar;
+    private javax.swing.JButton botonDisminuir;
     public javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAgregarMedicamento;
     public javax.swing.JButton btnCancelar;

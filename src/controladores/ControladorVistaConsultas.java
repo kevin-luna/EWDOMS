@@ -5,6 +5,8 @@
 package controladores;
 
 import dao.DAOConsultaMedica;
+import dao.DAOMedico;
+import dao.DAOPaciente;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -12,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelos.ConsultaMedica;
-import modelos.Medico;
 import vistas.MenuPrincipal;
 import vistas.FormConsultaMedica;
 
@@ -24,10 +25,14 @@ public class ControladorVistaConsultas implements ActionListener {
     private FormConsultaMedica menuRegistro;
     private ControladorRegistroConsulta controladorRegistroConsulta;
     private DefaultTableModel modeloTabla;
+    private DAOPaciente daoPaciente;
+    private DAOMedico daoMedico;
 
     public ControladorVistaConsultas(MenuPrincipal menu) {
         this.menu = menu;
         daoConsulta = new DAOConsultaMedica();
+        daoPaciente = new DAOPaciente();
+        daoMedico = new DAOMedico();
         menuRegistro = new FormConsultaMedica();
         controladorRegistroConsulta = new ControladorRegistroConsulta(menuRegistro);
         menuRegistro.agregarEventos(controladorRegistroConsulta);
@@ -36,9 +41,12 @@ public class ControladorVistaConsultas implements ActionListener {
 
     public void actualizarVista() {
         listaConsultas = daoConsulta.consultar();
+        
         modeloTabla.setRowCount(0);
         for (ConsultaMedica consulta : listaConsultas) {
-            modeloTabla.addRow(new Object[]{consulta.getId(), consulta.getIdPaciente(), consulta.getIdMedico(), consulta.getFecha(),});
+            String nombrePaciente = daoPaciente.consultar(consulta.getIdPaciente()).getNombre();
+            String nombreMedico = daoMedico.consultar(consulta.getIdMedico()).getNombre();
+            modeloTabla.addRow(new Object[]{consulta.getId(), nombrePaciente, nombreMedico, consulta.getFecha(),});
         }
     }
 

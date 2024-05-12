@@ -62,6 +62,13 @@ public class ConsultaMedica {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
+    @Override
+    public String toString() {
+        return "ConsultaMedica{" + "id=" + id + ", id_paciente=" + id_paciente + ", id_medico=" + id_medico + ", fecha=" + fecha + '}';
+    }
+    
+    
     
     
 }
