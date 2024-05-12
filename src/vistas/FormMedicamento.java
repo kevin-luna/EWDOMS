@@ -99,14 +99,14 @@ public class FormMedicamento extends javax.swing.JFrame {
         spinnerExistencia = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nuevo medicamento");
+        setTitle("Información del medicamento");
         setResizable(false);
 
         etiquetaTitulo.setBackground(new java.awt.Color(51, 102, 255));
         etiquetaTitulo.setFont(new java.awt.Font("Lucida Sans", 1, 24)); // NOI18N
         etiquetaTitulo.setForeground(new java.awt.Color(255, 255, 255));
         etiquetaTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaTitulo.setText("Registro de Medicamento");
+        etiquetaTitulo.setText("Información del Medicamento");
         etiquetaTitulo.setOpaque(true);
 
         botonGuardar.setText("Guardar");

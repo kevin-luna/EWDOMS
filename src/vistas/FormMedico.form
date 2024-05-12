@@ -10,7 +10,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Nuevo m&#xe9;dico"/>
+    <Property name="title" type="java.lang.String" value="Informaci&#xf3;n del m&#xe9;dico"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -113,7 +113,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Registro de Medico"/>
+        <Property name="text" type="java.lang.String" value="Informaci&#xf3;n del Medico"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>

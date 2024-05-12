@@ -123,14 +123,14 @@ public class FormMedico extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nuevo médico");
+        setTitle("Información del médico");
         setResizable(false);
 
         jLabel1.setBackground(new java.awt.Color(51, 102, 255));
         jLabel1.setFont(new java.awt.Font("Lucida Sans", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Registro de Medico");
+        jLabel1.setText("Información del Medico");
         jLabel1.setOpaque(true);
 
         etiquetaInstituto.setText("Instituto:");

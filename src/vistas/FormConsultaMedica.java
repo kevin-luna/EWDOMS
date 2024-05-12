@@ -121,7 +121,7 @@ public class FormConsultaMedica extends javax.swing.JFrame {
         comboMedico = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nueva consulta");
+        setTitle("Información de la consulta");
         setResizable(false);
 
         jLabel12.setText("Medico:");
@@ -132,7 +132,7 @@ public class FormConsultaMedica extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Lucida Sans", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Registro de Consulta");
+        jLabel1.setText("Información de la Consulta");
         jLabel1.setOpaque(true);
 
         btnAgregar.setText("Guardar");

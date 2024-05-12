@@ -188,13 +188,14 @@ public class FormPaciente extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nuevo paciente");
+        setTitle("Información del paciente");
+        setResizable(false);
 
         jLabel1.setBackground(new java.awt.Color(51, 102, 255));
         jLabel1.setFont(new java.awt.Font("Lucida Sans", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Registro de Paciente");
+        jLabel1.setText("Información del Paciente");
         jLabel1.setOpaque(true);
 
         jLabel3.setText("Nombre:");

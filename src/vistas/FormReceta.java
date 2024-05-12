@@ -424,13 +424,14 @@ public class FormReceta extends javax.swing.JFrame {
         tablaMedicamentos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nueva receta");
+        setTitle("Información de la receta");
+        setResizable(false);
 
         jLabel1.setBackground(new java.awt.Color(51, 102, 255));
         jLabel1.setFont(new java.awt.Font("Lucida Sans", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Receta Medica");
+        jLabel1.setText("Información de la Receta");
         jLabel1.setOpaque(true);
 
         jLabel12.setText("Diagnostico:");
