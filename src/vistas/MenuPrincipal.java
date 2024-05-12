@@ -87,7 +87,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public void agregarEventosVistaUsuarios(ControladorVistaUsuarios controlador){
         this.botonVerTodosUsuarios.addActionListener(controlador);
         this.botonNuevoUsuario.addActionListener(controlador);
-        this.botonEditarUsuario.addActionListener(controlador);
+        this.cambiarClave.addActionListener(controlador);
         this.botonEliminarUsuario.addActionListener(controlador);
     }
 
@@ -589,7 +589,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         panelSurUsuarios = new javax.swing.JPanel();
         botonVerTodosUsuarios = new javax.swing.JButton();
         botonNuevoUsuario = new javax.swing.JButton();
-        botonEditarUsuario = new javax.swing.JButton();
+        cambiarClave = new javax.swing.JButton();
         botonEliminarUsuario = new javax.swing.JButton();
         panelNorteUsuarios = new javax.swing.JPanel();
         panelTitulo = new javax.swing.JPanel();
@@ -630,16 +630,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         scrollPacientes.setViewportView(tablaPacientes);
-        if (tablaPacientes.getColumnModel().getColumnCount() > 0) {
-            tablaPacientes.getColumnModel().getColumn(0).setHeaderValue("Id");
-            tablaPacientes.getColumnModel().getColumn(2).setHeaderValue("");
-            tablaPacientes.getColumnModel().getColumn(4).setHeaderValue("Altura");
-            tablaPacientes.getColumnModel().getColumn(5).setHeaderValue("Peso");
-            tablaPacientes.getColumnModel().getColumn(6).setHeaderValue("Fecha de nacimiento");
-            tablaPacientes.getColumnModel().getColumn(7).setHeaderValue("Dirección");
-            tablaPacientes.getColumnModel().getColumn(8).setHeaderValue("Teléfono");
-            tablaPacientes.getColumnModel().getColumn(9).setHeaderValue("Correo electrónico");
-        }
 
         panelPacientes.add(scrollPacientes, java.awt.BorderLayout.CENTER);
 
@@ -927,10 +917,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonNuevoUsuario.setName("nuevo_usuario"); // NOI18N
         panelSurUsuarios.add(botonNuevoUsuario);
 
-        botonEditarUsuario.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        botonEditarUsuario.setText("Editar usuario");
-        botonEditarUsuario.setName("editar_usuario"); // NOI18N
-        panelSurUsuarios.add(botonEditarUsuario);
+        cambiarClave.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        cambiarClave.setText("Cambiar clave");
+        cambiarClave.setName("cambiar_clave"); // NOI18N
+        panelSurUsuarios.add(cambiarClave);
 
         botonEliminarUsuario.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         botonEliminarUsuario.setText("Eliminar usuario");
@@ -979,7 +969,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton botonEditarMedico;
     private javax.swing.JButton botonEditarPaciente;
     private javax.swing.JButton botonEditarReceta;
-    private javax.swing.JButton botonEditarUsuario;
     private javax.swing.JButton botonEliminarConsulta;
     private javax.swing.JButton botonEliminarMedicamento;
     private javax.swing.JButton botonEliminarMedico;
@@ -998,6 +987,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton botonVerTodosMedicos;
     private javax.swing.JButton botonVerTodosPacientes;
     private javax.swing.JButton botonVerTodosUsuarios;
+    private javax.swing.JButton cambiarClave;
     private javax.swing.JLabel etiquetaIcono;
     private javax.swing.JLabel etiquetaTitulo;
     private javax.swing.JLabel etiquetaVersion;

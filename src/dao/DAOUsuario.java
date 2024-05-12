@@ -24,6 +24,41 @@ public class DAOUsuario {
         this.conector = new Conector();
     }
     
+    public StatusConsulta cambiarClave(String nombreUsuario,String nuevaClave){
+        try {
+            Connection conexion = conector.iniciar();
+            String sql = "{call ActualizarClaveAcceso(?,?)}";
+            CallableStatement consulta = conexion.prepareCall(sql);
+            consulta.setString(1, nombreUsuario);
+            consulta.setString(2, nuevaClave);
+            consulta.execute();
+            ResultSet respuesta = consulta.getResultSet();
+            respuesta.next();
+            return new StatusConsulta(respuesta.getInt(1),respuesta.getString(2));
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return StatusConsulta.ERROR_SQL;
+        }
+    }
+    
+    public Usuario consultarUsuario(String nombre){
+        try {
+            Connection conexion = conector.iniciar();
+            String sql = "{call ConsultarUsuarioPorNombre(?)}";
+            CallableStatement consulta = conexion.prepareCall(sql);
+            consulta.setString(1, nombre);
+            consulta.execute();
+            ResultSet coincidencias = consulta.getResultSet();
+            if(coincidencias.next()){
+                return new Usuario(coincidencias.getString(1),coincidencias.getInt(3));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return null;
+    }
+    
     public ArrayList<Usuario> consultarUsuarios(){
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
         try {
@@ -61,6 +96,7 @@ public class DAOUsuario {
     }
     
     public StatusConsulta insertar(Usuario usuario){
+        System.out.println(usuario.toString());
         try {
             Connection conexion = conector.iniciar();
             String sql = "{call InsertarUsuario(?,?,?)}";

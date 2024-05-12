@@ -48,7 +48,7 @@ public class ControladorRegistroMedicamento implements ActionListener, ChangeLis
                     status = daoMedicamento.actualizar(menuRegistro.obtenerMedicamento().getId(),menuRegistro.obtenerMedicamento());
                 }else{
                     accion = "registró";
-                    accion2 = "actualizar";
+                    accion2 = "registrar";
                     status = daoMedicamento.insertar(medicamento)!=-1;
                 }
                 if(status){

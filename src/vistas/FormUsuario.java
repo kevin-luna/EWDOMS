@@ -4,6 +4,9 @@
  */
 package vistas;
 
+import controladores.ControladorRegistroUsuario;
+import modelos.Usuario;
+
 /**
  *
  * @author kevin
@@ -15,6 +18,38 @@ public class FormUsuario extends javax.swing.JFrame {
      */
     public FormUsuario() {
         initComponents();
+    }
+    
+    public Usuario obtenerUsuario(){
+        return new Usuario(this.campoNombre.getText(),new String(this.campoClave.getPassword()),this.comboAdministrador.getSelectedIndex());
+    }
+    
+    public void agregarEventos(ControladorRegistroUsuario controlador){
+        this.botonGuardar.addActionListener(controlador);
+        this.botonCancelar.addActionListener(controlador);
+    }
+    
+    public void cargarUsuario(Usuario usuario){
+        this.campoNombre.setText(usuario.getNombre());
+        this.comboAdministrador.setSelectedIndex(usuario.isAdministrador());
+    }
+    
+    public void limpiarNombre(){
+        this.campoNombre.setText("");
+    }
+    
+    public void limpiarClave(){
+        this.campoClave.setText("");
+    }
+    
+    public void limpiarAdministrador(){
+        this.comboAdministrador.setSelectedIndex(0);
+    }
+    
+    public void limpiar(){
+        limpiarNombre();
+        limpiarClave();
+        limpiarAdministrador();
     }
 
     /**
@@ -32,11 +67,11 @@ public class FormUsuario extends javax.swing.JFrame {
         etiquetaAdministrador = new javax.swing.JLabel();
         campoNombre = new javax.swing.JTextField();
         comboAdministrador = new javax.swing.JComboBox<>();
-        campoClave = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        botonGuardar = new javax.swing.JButton();
+        botonCancelar = new javax.swing.JButton();
+        campoClave = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Información del usuario");
         setResizable(false);
 
@@ -55,9 +90,11 @@ public class FormUsuario extends javax.swing.JFrame {
 
         comboAdministrador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Sí" }));
 
-        jButton1.setText("Guardar");
+        botonGuardar.setText("Guardar");
+        botonGuardar.setName("guardar"); // NOI18N
 
-        jButton2.setText("Cancelar");
+        botonCancelar.setText("Cancelar");
+        botonCancelar.setName("cancelar"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,13 +112,13 @@ public class FormUsuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(campoNombre)
-                            .addComponent(campoClave)
-                            .addComponent(comboAdministrador, 0, 270, Short.MAX_VALUE)))
+                            .addComponent(comboAdministrador, 0, 270, Short.MAX_VALUE)
+                            .addComponent(campoClave)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(143, 143, 143)
-                        .addComponent(jButton1)
+                        .addComponent(botonGuardar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addComponent(botonCancelar)))
                 .addContainerGap(55, Short.MAX_VALUE))
             .addComponent(etiquetaTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -95,16 +132,16 @@ public class FormUsuario extends javax.swing.JFrame {
                     .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(etiquetaClave))
+                    .addComponent(etiquetaClave)
+                    .addComponent(campoClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(etiquetaAdministrador))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(etiquetaAdministrador)
+                    .addComponent(comboAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(botonGuardar)
+                    .addComponent(botonCancelar))
                 .addGap(17, 17, 17))
         );
 
@@ -113,14 +150,14 @@ public class FormUsuario extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField campoClave;
+    private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonGuardar;
+    private javax.swing.JPasswordField campoClave;
     private javax.swing.JTextField campoNombre;
     private javax.swing.JComboBox<String> comboAdministrador;
     private javax.swing.JLabel etiquetaAdministrador;
     private javax.swing.JLabel etiquetaClave;
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel etiquetaTitulo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }

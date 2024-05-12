@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import modelos.Usuario;
+import vistas.FormClaveUsuario;
+import vistas.FormUsuario;
 import vistas.MenuPrincipal;
 
 /**
@@ -21,10 +23,20 @@ public class ControladorVistaUsuarios implements ActionListener{
     private MenuPrincipal menu;
     private DAOUsuario daoUsuario;
     private ArrayList<Usuario> listaUsuarios;
+    private FormUsuario menuRegistro;
+    private ControladorRegistroUsuario controladorRegistroUsuario;
+    private FormClaveUsuario menuClaveUsuario;
+    private ControladorClaveUsuario controladorClaveUsuario;
 
     public ControladorVistaUsuarios(MenuPrincipal menu) {
         this.menu = menu;
         this.daoUsuario = new DAOUsuario();
+        this.menuRegistro = new FormUsuario();
+        this.controladorRegistroUsuario = new ControladorRegistroUsuario(menuRegistro);
+        this.menuRegistro.agregarEventos(controladorRegistroUsuario);
+        this.menuClaveUsuario = new FormClaveUsuario();
+        this.controladorClaveUsuario = new ControladorClaveUsuario(menuClaveUsuario);
+        this.menuClaveUsuario.agregarEventos(controladorClaveUsuario);
     }
     
     
@@ -41,6 +53,20 @@ public class ControladorVistaUsuarios implements ActionListener{
         }
     }
     
+    public void insertarUsuario(){
+        menuRegistro.limpiar();
+        menuRegistro.setVisible(true);
+    }
+    
+    public void cambiarClave(){
+        String nombreUsuario = menu.obtenerUsuarioSeleccionado();
+        if(nombreUsuario!=null){
+            controladorClaveUsuario.setNombreUsuario(nombreUsuario);
+            menuClaveUsuario.limpiar();
+            menuClaveUsuario.setVisible(true);
+        }   
+    }
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -50,10 +76,10 @@ public class ControladorVistaUsuarios implements ActionListener{
                 actualizarUsuarios();
                 break;
             case "nuevo_usuario":
-                
+                insertarUsuario();
                 break;
-            case "editar_usuario":
-                
+            case "cambiar_clave":
+                cambiarClave();
                 break;
             case "eliminar_usuario":
                 eliminarUsuario();

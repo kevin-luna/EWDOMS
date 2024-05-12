@@ -81,7 +81,7 @@
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Id"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
@@ -91,7 +91,7 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value=""/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
@@ -101,32 +101,32 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Altura"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Peso"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Fecha de nacimiento"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Direcci&#xf3;n"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Tel&#xe9;fono"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title value="Correo electr&#xf3;nico"/>
+                          <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
@@ -752,13 +752,13 @@
                     <Property name="name" type="java.lang.String" value="nuevo_usuario" noResource="true"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="botonEditarUsuario">
+                <Component class="javax.swing.JButton" name="cambiarClave">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="sansserif" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Editar usuario"/>
-                    <Property name="name" type="java.lang.String" value="editar_usuario" noResource="true"/>
+                    <Property name="text" type="java.lang.String" value="Cambiar clave"/>
+                    <Property name="name" type="java.lang.String" value="cambiar_clave" noResource="true"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="botonEliminarUsuario">

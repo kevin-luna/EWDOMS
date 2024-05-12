@@ -19,9 +19,15 @@ public class Usuario {
     private String claveAcceso;
     private int administrador;
 
+    public Usuario(String nombre, String claveAcceso, int administrador) {
+        this.nombre = nombre;
+        this.claveAcceso = hashClave(claveAcceso);
+        this.administrador = administrador;
+    }
+
     public Usuario(String nombre, String claveAcceso) {
         this.nombre = nombre;
-        hashClave(claveAcceso);
+        this.claveAcceso = hashClave(claveAcceso);
     }
 
     public Usuario(String nombre, int administrador) {
@@ -42,8 +48,8 @@ public class Usuario {
         return claveAcceso;
     }
 
-    public void setClaveAcceso(String contraseña) {
-        hashClave(claveAcceso);
+    public void setClaveAcceso(String claveAcceso) {
+        this.claveAcceso = hashClave(claveAcceso);
     }
 
     public int isAdministrador() {
@@ -53,8 +59,10 @@ public class Usuario {
     public void setAdministrador(int administrador) {
         this.administrador = administrador;
     }
+    
 
-    private void hashClave(String claveAcceso) {
+
+    public static String hashClave(String claveAcceso) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hashedBytes = digest.digest(claveAcceso.getBytes());
@@ -64,9 +72,17 @@ public class Usuario {
             for (byte b : hashedBytes) {
                 sb.append(String.format("%02x", b));
             }
-            this.claveAcceso = sb.toString();
+            return sb.toString();
         } catch (NoSuchAlgorithmException ex) {
             System.out.println("No se ha podido hashear la contraseña.");
         }
+        return null;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "nombre=" + nombre + ", claveAcceso=" + claveAcceso + ", administrador=" + administrador + '}';
+    }
+    
+    
 }
