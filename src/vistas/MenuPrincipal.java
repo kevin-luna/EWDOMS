@@ -5,7 +5,6 @@
 package vistas;
 
 import controladores.ControladorVistaConsultas;
-import controladores.ControladorVistaMedicamentos;
 import controladores.ControladorVistaMedicos;
 import controladores.ControladorVistaPacientes;
 import controladores.ControladorVistaRecetas;
@@ -29,7 +28,6 @@ import modelos.Usuario;
 public class MenuPrincipal extends javax.swing.JFrame {
 
     private DefaultTableModel modeloTablaRecetas;
-    private DefaultTableModel modeloTablaMedicamentos;
     private DefaultTableModel modeloTablaUsuarios;
     private boolean modoAdministrador;
     /**
@@ -41,19 +39,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
             pestanasVistas.remove(5);
         }
         this.modeloTablaRecetas = (DefaultTableModel) this.tablaRecetas.getModel();
-        this.modeloTablaMedicamentos = (DefaultTableModel) this.tablaMedicamentos.getModel();
         this.modeloTablaUsuarios = (DefaultTableModel)this.tablaUsuarios.getModel();
     }
 
     public void agregarEventos() {
 
-    }
-
-    public void agregarEventosVistaMedicamentos(ControladorVistaMedicamentos controlador) {
-        this.botonVerTodosMedicamentos.addActionListener(controlador);
-        this.botonNuevoMedicamento.addActionListener(controlador);
-        this.botonEditarMedicamento.addActionListener(controlador);
-        this.botonEliminarMedicamento.addActionListener(controlador);
     }
 
     public void agregarEventosVistaMedicos(ControladorVistaMedicos controlador) {
@@ -98,13 +88,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }
 
-    public void cargarMedicamentos(ArrayList<Medicamento> medicamentos) {
-        modeloTablaMedicamentos.setRowCount(0);
-        for (Medicamento medicamento : medicamentos) {
-            modeloTablaMedicamentos.addRow(new Object[]{medicamento.getId(), medicamento.getNombre(), medicamento.getExistencia()});
-        }
-    }
-    
     public void cargarUsuarios(ArrayList<Usuario> usuarios){
         modeloTablaUsuarios.setRowCount(0);
         for(Usuario usuario : usuarios){
@@ -160,13 +143,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.botonEditarConsulta = botonEditarConsulta;
     }
 
-    public JButton getBotonEditarMedicamento() {
-        return botonEditarMedicamento;
-    }
-
-    public void setBotonEditarMedicamento(JButton botonEditarMedicamento) {
-        this.botonEditarMedicamento = botonEditarMedicamento;
-    }
 
     public JButton getBotonEditarMedico() {
         return botonEditarMedico;
@@ -198,14 +174,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     public void setBotonEliminarConsulta(JButton botonEliminarConsulta) {
         this.botonEliminarConsulta = botonEliminarConsulta;
-    }
-
-    public JButton getBotonEliminarMedicamento() {
-        return botonEliminarMedicamento;
-    }
-
-    public void setBotonEliminarMedicamento(JButton botonEliminarMedicamento) {
-        this.botonEliminarMedicamento = botonEliminarMedicamento;
     }
 
     public JButton getBotonEliminarMedico() {
@@ -240,13 +208,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.botonNuevaReceta = botonNuevo2;
     }
 
-    public JButton getBotonNuevoMedicamento() {
-        return botonNuevoMedicamento;
-    }
-
-    public void setBotonNuevoMedicamento(JButton botonNuevoMedicamento) {
-        this.botonNuevoMedicamento = botonNuevoMedicamento;
-    }
 
     public JButton getBotonNuevoMedico() {
         return botonNuevoMedico;
@@ -280,13 +241,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.botonVerTodasRecetas = botonVerTodasRecetas;
     }
 
-    public JButton getBotonVerTodosMedicamentos() {
-        return botonVerTodosMedicamentos;
-    }
-
-    public void setBotonVerTodosMedicamentos(JButton botonVerTodosMedicamentos) {
-        this.botonVerTodosMedicamentos = botonVerTodosMedicamentos;
-    }
 
     public JButton getBotonVerTodosMedicos() {
         return botonVerTodosMedicos;
@@ -328,13 +282,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.panelConsultas = panelConsultas;
     }
 
-    public JPanel getPanelMedicamentos() {
-        return panelMedicamentos;
-    }
-
-    public void setPanelMedicamentos(JPanel panelMedicamentos) {
-        this.panelMedicamentos = panelMedicamentos;
-    }
 
     public JPanel getPanelMedicos() {
         return panelMedicos;
@@ -352,13 +299,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.panelNorteConsultas = panelNorteConsultas;
     }
 
-    public JPanel getPanelNorteMedicamentos() {
-        return panelNorteMedicamentos;
-    }
-
-    public void setPanelNorteMedicamentos(JPanel panelNorteMedicamentos) {
-        this.panelNorteMedicamentos = panelNorteMedicamentos;
-    }
 
     public JPanel getPanelNorteMedicos() {
         return panelNorteMedicos;
@@ -407,15 +347,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public void setPanelSurConsultas(JPanel panelSurConsultas) {
         this.panelSurConsultas = panelSurConsultas;
     }
-
-    public JPanel getPanelSurMedicamentos() {
-        return panelSurMedicamentos;
-    }
-
-    public void setPanelSurMedicamentos(JPanel panelSurMedicamentos) {
-        this.panelSurMedicamentos = panelSurMedicamentos;
-    }
-
+    
     public JPanel getPanelSurMedicos() {
         return panelSurMedicos;
     }
@@ -456,13 +388,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.scrollConsultas = scrollConsultas;
     }
 
-    public JScrollPane getScrollMedicamentos() {
-        return scrollMedicamentos;
-    }
-
-    public void setScrollMedicamentos(JScrollPane scrollMedicamentos) {
-        this.scrollMedicamentos = scrollMedicamentos;
-    }
 
     public JScrollPane getScrollMedicos() {
         return scrollMedicos;
@@ -495,15 +420,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public void setTablaConsultas(JTable tablaConsultas) {
         this.tablaConsultas = tablaConsultas;
     }
-
-    public JTable getTablaMedicamentos() {
-        return tablaMedicamentos;
-    }
-
-    public void setTablaMedicamentos(JTable tablaMedicamentos) {
-        this.tablaMedicamentos = tablaMedicamentos;
-    }
-
+    
     public JTable getTablaMedicos() {
         return tablaMedicos;
     }
@@ -574,15 +491,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         botonEditarReceta = new javax.swing.JButton();
         botonEliminarReceta = new javax.swing.JButton();
         panelNorteRecetas = new javax.swing.JPanel();
-        panelMedicamentos = new javax.swing.JPanel();
-        scrollMedicamentos = new javax.swing.JScrollPane();
-        tablaMedicamentos = new javax.swing.JTable();
-        panelSurMedicamentos = new javax.swing.JPanel();
-        botonVerTodosMedicamentos = new javax.swing.JButton();
-        botonNuevoMedicamento = new javax.swing.JButton();
-        botonEditarMedicamento = new javax.swing.JButton();
-        botonEliminarMedicamento = new javax.swing.JButton();
-        panelNorteMedicamentos = new javax.swing.JPanel();
         panelUsuarios = new javax.swing.JPanel();
         scrollUsuarios = new javax.swing.JScrollPane();
         tablaUsuarios = new javax.swing.JTable();
@@ -824,61 +732,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         pestanasVistas.addTab("Recetas", PanelRecetas);
 
-        panelMedicamentos.setLayout(new java.awt.BorderLayout());
-
-        tablaMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Id", "Nombre", "Existencia"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        scrollMedicamentos.setViewportView(tablaMedicamentos);
-
-        panelMedicamentos.add(scrollMedicamentos, java.awt.BorderLayout.CENTER);
-
-        botonVerTodosMedicamentos.setText("Ver todos");
-        botonVerTodosMedicamentos.setName("todos_medicamentos"); // NOI18N
-        panelSurMedicamentos.add(botonVerTodosMedicamentos);
-
-        botonNuevoMedicamento.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        botonNuevoMedicamento.setText("Nuevo medicamento");
-        botonNuevoMedicamento.setName("nuevo_medicamento"); // NOI18N
-        panelSurMedicamentos.add(botonNuevoMedicamento);
-
-        botonEditarMedicamento.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        botonEditarMedicamento.setText("Editar medicamento");
-        botonEditarMedicamento.setName("editar_medicamento"); // NOI18N
-        panelSurMedicamentos.add(botonEditarMedicamento);
-
-        botonEliminarMedicamento.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        botonEliminarMedicamento.setText("Eliminar medicamento");
-        botonEliminarMedicamento.setName("eliminar_medicamento"); // NOI18N
-        panelSurMedicamentos.add(botonEliminarMedicamento);
-
-        panelMedicamentos.add(panelSurMedicamentos, java.awt.BorderLayout.PAGE_END);
-
-        panelNorteMedicamentos.setLayout(new java.awt.GridBagLayout());
-        panelMedicamentos.add(panelNorteMedicamentos, java.awt.BorderLayout.PAGE_START);
-
-        pestanasVistas.addTab("Medicamentos", panelMedicamentos);
-
         panelUsuarios.setLayout(new java.awt.BorderLayout());
 
         tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -965,25 +818,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelRecetas;
     private javax.swing.JButton botonEditarConsulta;
-    private javax.swing.JButton botonEditarMedicamento;
     private javax.swing.JButton botonEditarMedico;
     private javax.swing.JButton botonEditarPaciente;
     private javax.swing.JButton botonEditarReceta;
     private javax.swing.JButton botonEliminarConsulta;
-    private javax.swing.JButton botonEliminarMedicamento;
     private javax.swing.JButton botonEliminarMedico;
     private javax.swing.JButton botonEliminarPaciente;
     private javax.swing.JButton botonEliminarReceta;
     private javax.swing.JButton botonEliminarUsuario;
     private javax.swing.JButton botonNuevaConsulta;
     private javax.swing.JButton botonNuevaReceta;
-    private javax.swing.JButton botonNuevoMedicamento;
     private javax.swing.JButton botonNuevoMedico;
     private javax.swing.JButton botonNuevoPaciente;
     private javax.swing.JButton botonNuevoUsuario;
     private javax.swing.JButton botonVerTodasConsultas;
     private javax.swing.JButton botonVerTodasRecetas;
-    private javax.swing.JButton botonVerTodosMedicamentos;
     private javax.swing.JButton botonVerTodosMedicos;
     private javax.swing.JButton botonVerTodosPacientes;
     private javax.swing.JButton botonVerTodosUsuarios;
@@ -992,10 +841,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel etiquetaTitulo;
     private javax.swing.JLabel etiquetaVersion;
     private javax.swing.JPanel panelConsultas;
-    private javax.swing.JPanel panelMedicamentos;
     private javax.swing.JPanel panelMedicos;
     private javax.swing.JPanel panelNorteConsultas;
-    private javax.swing.JPanel panelNorteMedicamentos;
     private javax.swing.JPanel panelNorteMedicos;
     private javax.swing.JPanel panelNortePacientes;
     private javax.swing.JPanel panelNorteRecetas;
@@ -1003,7 +850,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelPacientes;
     private javax.swing.JPanel panelPie;
     private javax.swing.JPanel panelSurConsultas;
-    private javax.swing.JPanel panelSurMedicamentos;
     private javax.swing.JPanel panelSurMedicos;
     private javax.swing.JPanel panelSurPacientes;
     private javax.swing.JPanel panelSurRecetas;
@@ -1012,13 +858,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelUsuarios;
     private javax.swing.JTabbedPane pestanasVistas;
     private javax.swing.JScrollPane scrollConsultas;
-    private javax.swing.JScrollPane scrollMedicamentos;
     private javax.swing.JScrollPane scrollMedicos;
     private javax.swing.JScrollPane scrollPacientes;
     private javax.swing.JScrollPane scrollRecetas;
     private javax.swing.JScrollPane scrollUsuarios;
     private javax.swing.JTable tablaConsultas;
-    private javax.swing.JTable tablaMedicamentos;
     private javax.swing.JTable tablaMedicos;
     private javax.swing.JTable tablaPacientes;
     private javax.swing.JTable tablaRecetas;

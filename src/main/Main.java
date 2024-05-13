@@ -5,14 +5,7 @@
 package main;
 
 import controladores.ControladorInicioSesion;
-import controladores.ControladorMenuPrincipal;
-import controladores.ControladorVistaConsultas;
-import controladores.ControladorVistaMedicamentos;
-import controladores.ControladorVistaMedicos;
-import controladores.ControladorVistaPacientes;
-import controladores.ControladorVistaRecetas;
 import vistas.FormInicioSesion;
-import vistas.MenuPrincipal;
 
 /**
  *

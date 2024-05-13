@@ -38,7 +38,8 @@ public class DAOReceta implements DAO<Long, Receta> {
                             coincidencias.getLong("id_consulta"),
                             coincidencias.getString("diagnostico"),
                             coincidencias.getString("sintomas"),
-                            coincidencias.getString("recomendaciones")
+                            coincidencias.getString("recomendaciones"),
+                            coincidencias.getString("medicamentos")
                     );
                     return receta;
                 }
@@ -67,7 +68,8 @@ public class DAOReceta implements DAO<Long, Receta> {
                             resultados.getLong("id_consulta"),
                             resultados.getString("diagnostico"),
                             resultados.getString("sintomas"),
-                            resultados.getString("recomendaciones")
+                            resultados.getString("recomendaciones"),
+                            resultados.getString("medicamentos")
                     );
                     listaRecetas.add(receta);
                 }
@@ -86,13 +88,14 @@ public class DAOReceta implements DAO<Long, Receta> {
     public long insertar(Receta receta) {
         Connection conexion = conector.iniciar();
         if (conexion != null) {
-            String sql = "INSERT INTO receta (id_consulta, diagnostico, sintomas, recomendaciones) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO receta (id_consulta, diagnostico, sintomas, recomendaciones, medicamentos) VALUES (?, ?, ?, ?, ?)";
             try {
                 PreparedStatement consulta = conexion.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                 consulta.setLong(1, receta.getId_consulta());
                 consulta.setString(2, receta.getDiagnostico());
                 consulta.setString(3, receta.getSintomas());
                 consulta.setString(4, receta.getRecomendaciones());
+                consulta.setString(5, receta.getMedicamentos());
                 int status = consulta.executeUpdate();
                 if(status>0){
                     ResultSet llavePrimaria = consulta.getGeneratedKeys();
@@ -133,14 +136,15 @@ public class DAOReceta implements DAO<Long, Receta> {
     public boolean actualizar(Long id, Receta receta) {
         Connection conexion = conector.iniciar();
         if (conexion != null) {
-            String sql = "UPDATE receta SET id_consulta=?, diagnostico=?, sintomas=?, recomendaciones=? WHERE id=?";
+            String sql = "UPDATE receta SET id_consulta=?, diagnostico=?, sintomas=?, recomendaciones=?, medicamentos=? WHERE id=?";
             try {
                 PreparedStatement consulta = conexion.prepareStatement(sql);
                 consulta.setLong(1, receta.getId_consulta());
                 consulta.setString(2, receta.getDiagnostico());
                 consulta.setString(3, receta.getSintomas());
                 consulta.setString(4, receta.getRecomendaciones());
-                consulta.setLong(5, id);
+                consulta.setString(5, receta.getMedicamentos());
+                consulta.setLong(6, id);
                 if(consulta.executeUpdate()>0);
                 return true;
             } catch (SQLException ex) {

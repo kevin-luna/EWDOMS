@@ -5,8 +5,6 @@
 package controladores;
 
 import dao.DAOConsultaMedica;
-import dao.DAODetalleReceta;
-import dao.DAOMedicamento;
 import dao.DAOReceta;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
@@ -22,9 +20,7 @@ public class ControladorVistaRecetas implements ActionListener {
 
     private MenuPrincipal menu;
     private DAOReceta daoReceta;
-    private DAODetalleReceta daoDetalleReceta;
     private DAOConsultaMedica daoConsultaMedica;
-    private DAOMedicamento daoMedicamento;
     private ArrayList<Receta> listaRecetas;
     private FormReceta menuRegistro;
     private ControladorRegistroReceta controladorRegistroReceta;
@@ -32,9 +28,7 @@ public class ControladorVistaRecetas implements ActionListener {
     public ControladorVistaRecetas(MenuPrincipal menu) {
         this.menu = menu;
         daoReceta = new DAOReceta();
-        daoDetalleReceta = new DAODetalleReceta();
         daoConsultaMedica = new DAOConsultaMedica();
-        daoMedicamento = new DAOMedicamento();
         menuRegistro = new FormReceta();
         controladorRegistroReceta = new ControladorRegistroReceta(menuRegistro);
         menuRegistro.agregarEventos(controladorRegistroReceta);
@@ -44,7 +38,6 @@ public class ControladorVistaRecetas implements ActionListener {
         menuRegistro.limpiar();
         menuRegistro.setActualizar(false);
         menuRegistro.cargarCatalogoConsultas(daoConsultaMedica.consultar());
-        menuRegistro.cargarCatalogoMedicamentos(daoMedicamento.consultar());
         menuRegistro.setVisible(true);
     }
 
@@ -66,9 +59,7 @@ public class ControladorVistaRecetas implements ActionListener {
                 menuRegistro.limpiar();
                 menuRegistro.setActualizar(true);
                 menuRegistro.cargarCatalogoConsultas(daoConsultaMedica.consultar());
-                menuRegistro.cargarCatalogoMedicamentos(daoMedicamento.consultar());
                 menuRegistro.cargarReceta(receta);
-                menuRegistro.cargarMedicamentos(daoDetalleReceta.consultar(id));
                 menuRegistro.setVisible(true);
             }
         }

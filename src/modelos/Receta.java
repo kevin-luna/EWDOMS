@@ -14,6 +14,16 @@ public class Receta {
     private String diagnostico;
     private String sintomas;
     private String recomendaciones;
+    private String medicamentos;
+
+    public Receta(long id, long id_consulta, String diagnostico, String sintomas, String recomendaciones, String medicamentos) {
+        this.id = id;
+        this.id_consulta = id_consulta;
+        this.diagnostico = diagnostico;
+        this.sintomas = sintomas;
+        this.recomendaciones = recomendaciones;
+        this.medicamentos = medicamentos;
+    }
 
     public Receta(long id, long id_consulta, String diagnostico, String sintomas, String recomendaciones) {
         this.id = id;
@@ -23,11 +33,12 @@ public class Receta {
         this.recomendaciones = recomendaciones;
     }
 
-    public Receta(long id_consulta, String diagnostico, String sintomas, String recomendaciones) {
+    public Receta(long id_consulta, String diagnostico, String sintomas, String recomendaciones, String medicamentos) {
         this.id_consulta = id_consulta;
         this.diagnostico = diagnostico;
         this.sintomas = sintomas;
         this.recomendaciones = recomendaciones;
+        this.medicamentos = medicamentos;
     }
 
     public long getId() {
@@ -71,11 +82,16 @@ public class Receta {
         this.recomendaciones = recomendaciones;
     }
 
+    public String getMedicamentos() {
+        return medicamentos;
+    }
+
+    public void setMedicamentos(String medicamentos) {
+        this.medicamentos = medicamentos;
+    }
+
     @Override
     public String toString() {
-        return "Receta{" + "id=" + id + ", id_consulta=" + id_consulta + ", diagnostico=" + diagnostico + ", sintomas=" + sintomas + ", recomendaciones=" + recomendaciones + '}';
+        return "Receta{" + "id=" + id + ", id_consulta=" + id_consulta + ", diagnostico=" + diagnostico + ", sintomas=" + sintomas + ", recomendaciones=" + recomendaciones + ", medicamentos=" + medicamentos + '}';
     }
-    
-    
-    
 }

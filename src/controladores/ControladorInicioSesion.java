@@ -37,7 +37,6 @@ public class ControladorInicioSesion implements ActionListener {
     public void iniciarAplicacion(boolean modoAdministrador){
         menuPrincipal = new MenuPrincipal(modoAdministrador);
         ControladorMenuPrincipal controladorMenuPrincpal = new ControladorMenuPrincipal(menuPrincipal);
-        ControladorVistaMedicamentos controladorVistaMedicamentos = new ControladorVistaMedicamentos(menuPrincipal);
         ControladorVistaMedicos controladorVistaMedicos = new ControladorVistaMedicos(menuPrincipal);
         ControladorVistaPacientes controladorVistaPacientes = new ControladorVistaPacientes(menuPrincipal);
         ControladorVistaConsultas controladorVistaConsultas = new ControladorVistaConsultas(menuPrincipal);
@@ -45,7 +44,6 @@ public class ControladorInicioSesion implements ActionListener {
         ControladorVistaUsuarios controladorVistaUsuarios = new ControladorVistaUsuarios(menuPrincipal);
         
         //menuPrincipal.agregarEventos();
-        menuPrincipal.agregarEventosVistaMedicamentos(controladorVistaMedicamentos);
         menuPrincipal.agregarEventosVistaMedicos(controladorVistaMedicos);
         menuPrincipal.agregarEventosVistaPacientes(controladorVistaPacientes);
         menuPrincipal.agregarEventosVistaConsultas(controladorVistaConsultas);
