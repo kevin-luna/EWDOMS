@@ -110,7 +110,7 @@ public class DAOMedico implements DAO<Long, Medico>{
         if(conexion!=null){
             String sql = "INSERT INTO medico (nombre,especialidad,cedula,instituto) VALUES(?,?,?,?)";
             try {
-                PreparedStatement consulta = conexion.prepareStatement(sql);
+                PreparedStatement consulta = conexion.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
                 consulta.setString(1,objeto.getNombre());
                 consulta.setString(2, objeto.getEspecialidad());
                 consulta.setString(3, objeto.getCedula());

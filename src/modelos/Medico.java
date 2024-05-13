@@ -14,6 +14,10 @@ public class Medico {
     private String especialidad;
     private String cedula;
     private String instituto;
+    
+    public Medico(){
+        
+    }
 
     public Medico(long id, String nombre, String especialidad, String cedula, String instituto) {
         this.id = id;

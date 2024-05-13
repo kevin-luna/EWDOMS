@@ -20,6 +20,7 @@ public class FormMedico extends javax.swing.JFrame {
      */
     public FormMedico() {
         initComponents();
+        this.medico = new Medico();
     }
 
     public Medico obtenerMedico() {
