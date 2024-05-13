@@ -7,7 +7,10 @@ package vistas;
 import controladores.ControladorRegistroConsulta;
 import dao.DAOMedico;
 import dao.DAOPaciente;
+import excepciones.EntradaInvalida;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import modelos.ConsultaMedica;
 import modelos.Medico;
 import modelos.Paciente;
@@ -51,7 +54,18 @@ public class FormConsultaMedica extends javax.swing.JFrame {
         txtFecha.setText(consulta.getFecha());
     }
     
-    public ConsultaMedica obtenerConsulta(){
+    public ConsultaMedica obtenerConsulta() throws EntradaInvalida{
+        String fecha = this.obtenerFecha();
+        // Expresión regular para el formato AAAA/MM/DD
+        String regex = "^(\\d{4})[/-](0[1-9]|1[0-2])[/-](0[1-9]|[1-2][0-9]|3[0-1])$";
+
+        // Compilar la expresión regular en un objeto Pattern
+        Pattern pattern = Pattern.compile(regex);
+
+        // Crear un objeto Matcher para buscar la expresión regular en la cadena de fecha
+        Matcher matcher = pattern.matcher(fecha);
+        
+        if (!matcher.matches())throw new EntradaInvalida("Formato de fecha no válido.\nProporcione una fecha de la forma AAAA/MM/DD.");
         consulta.setIdMedico(obtenerIdMedico());
         consulta.setIdPaciente(obtenerIdPaciente());
         consulta.setFecha(obtenerFecha());

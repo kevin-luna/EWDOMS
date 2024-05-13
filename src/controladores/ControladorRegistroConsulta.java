@@ -5,6 +5,7 @@
 package controladores;
 
 import dao.DAOConsultaMedica;
+import excepciones.EntradaInvalida;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import modelos.ConsultaMedica;
 import vistas.FormConsultaMedica;
 
 public class ControladorRegistroConsulta implements ActionListener {
+
     private ConsultaMedica consulta;
     private DAOConsultaMedica daoConsulta;
     private FormConsultaMedica menuRegistro;
@@ -28,32 +30,32 @@ public class ControladorRegistroConsulta implements ActionListener {
 
         switch (boton.getName()) {
             case "guardar":
-                if (menuRegistro.tieneCamposVacios()) {
-                    JOptionPane.showMessageDialog(menuRegistro, "No pueden quedar campos vacíos", "Atención", JOptionPane.WARNING_MESSAGE);
-                    break;
-                }
-                consulta = new ConsultaMedica(
-                        menuRegistro.obtenerIdPaciente(),
-                        menuRegistro.obtenerIdMedico(),
-                        menuRegistro.obtenerFecha()
-                );
-                boolean status;
-                String accion, accion2;
-                if(menuRegistro.getActualizar()){
-                    accion = "actuaizó";
-                    accion2 = "actualizar";
-                    status = daoConsulta.actualizar(menuRegistro.obtenerConsulta().getId(), menuRegistro.obtenerConsulta());
-                }else{
-                    accion = "registró";
-                    accion2="registrar";
-                    status = daoConsulta.insertar(consulta)!=-1;
-                }
-                if (status) {
-                    JOptionPane.showMessageDialog(menuRegistro, "La consulta se "+accion+" exitosamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-                    menuRegistro.limpiar();
-                    menuRegistro.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(menuRegistro, "No se pudo "+accion2+" actualizar.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
+                try {
+                    if (menuRegistro.tieneCamposVacios()) {
+                        JOptionPane.showMessageDialog(menuRegistro, "No pueden quedar campos vacíos", "Atención", JOptionPane.WARNING_MESSAGE);
+                        break;
+                    }
+                    consulta = menuRegistro.obtenerConsulta();
+                    boolean status;
+                    String accion, accion2;
+                    if (menuRegistro.getActualizar()) {
+                        accion = "actuaizó";
+                        accion2 = "actualizar";
+                        status = daoConsulta.actualizar(menuRegistro.obtenerConsulta().getId(), menuRegistro.obtenerConsulta());
+                    } else {
+                        accion = "registró";
+                        accion2 = "registrar";
+                        status = daoConsulta.insertar(consulta) != -1;
+                    }
+                    if (status) {
+                        JOptionPane.showMessageDialog(menuRegistro, "La consulta se " + accion + " exitosamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                        menuRegistro.limpiar();
+                        menuRegistro.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(menuRegistro, "No se pudo " + accion2 + " actualizar.", "Error en el registro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }catch(EntradaInvalida ex){
+                    JOptionPane.showMessageDialog(menuRegistro, ex.getMessage(), "Entrada invalida", JOptionPane.WARNING_MESSAGE);
                 }
                 break;
             case "cancelar":
