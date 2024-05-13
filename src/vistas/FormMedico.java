@@ -5,6 +5,10 @@
 package vistas;
 
 import controladores.ControladorRegistroMedico;
+import excepciones.EntradaInvalida;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import static jdk.internal.joptsimple.util.RegexMatcher.regex;
 import modelos.Medico;
 
 /**
@@ -23,11 +27,51 @@ public class FormMedico extends javax.swing.JFrame {
         this.medico = new Medico();
     }
 
-    public Medico obtenerMedico() {
-        medico.setNombre(txtNombre.getText());
-        medico.setEspecialidad(txtEspecialidad.getText());
-        medico.setCedula(txtCedula.getText());
-        medico.setInstituto(txtInstituto.getText());
+    public Medico obtenerMedico() throws EntradaInvalida{
+        String cedula = txtCedula.getText();
+        String nombre = txtNombre.getText();
+        String especialidad = txtEspecialidad.getText();
+        String instituto = txtInstituto.getText();
+        String regexCedula = "^[A-Z]{3,4}\\d{6}(?:[A-Z]|\\d)$";
+        String regexLetras = "^[a-zA-Z]+(\\s[a-zA-Z]+)*$";
+
+        
+        Pattern pattern = Pattern.compile(regexLetras);
+
+        // Crear un objeto Matcher para buscar la expresión regular en la cadena de fecha
+        Matcher matcher = pattern.matcher(nombre);
+
+        // Verificar si la fecha coincide con la expresión regular
+        if(!matcher.matches()){
+            throw new EntradaInvalida("El nombre solo puede contener letras y espacios,\npero no puede haber espacios al principio ni al final.");
+        }
+        
+        
+        matcher = pattern.matcher(especialidad);
+        if (!matcher.matches()) {
+            throw new EntradaInvalida("La especialidad solo puede contener letras,\npero no puede haber espacios al principio ni al final.");
+        }
+        
+        pattern = Pattern.compile(regexCedula);
+        matcher = pattern.matcher(cedula);
+        if (!matcher.matches()) {
+            throw new EntradaInvalida("La cédula no tiene un formato válido.");
+        }
+        pattern = Pattern.compile(regexLetras);
+        matcher = pattern.matcher(instituto);
+        if (!matcher.matches()) {
+            throw new EntradaInvalida("El instituto solo puede contener letras o espacios,\npero no puede haber espacios al principio ni al final.");
+        }
+        
+        if(nombre.length()>=255) throw new EntradaInvalida("La longitud del nombre no puede exceder los 255 caracteres.");
+        if(especialidad.length()>=255) throw new EntradaInvalida("La longitud de la especialidad no puede exceder los 255 caracteres.");
+        if(cedula.length()>=12) throw new EntradaInvalida("La longitud de la cedula no puede exceder los 11 caracteres.");
+         if(instituto.length()>=255) throw new EntradaInvalida("La longitud del instituto no puede exceder los 255 caracteres.");
+
+        medico.setNombre(nombre);
+        medico.setEspecialidad(especialidad);
+        medico.setCedula(cedula);
+        medico.setInstituto(instituto);
         return medico;
     }
 

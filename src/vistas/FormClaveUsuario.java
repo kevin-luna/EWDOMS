@@ -5,6 +5,7 @@
 package vistas;
 
 import controladores.ControladorClaveUsuario;
+import excepciones.EntradaInvalida;
 import modelos.Usuario;
 
 /**
@@ -20,7 +21,9 @@ public class FormClaveUsuario extends javax.swing.JFrame {
         initComponents();
     }
     
-    public String obtenerClave(){
+    public String obtenerClave() throws EntradaInvalida{
+        String clave = new String(this.campoClave.getPassword());
+        if(clave.length()>=255) throw new EntradaInvalida("La longitud de la clave no puede ser mayor a 255 caracteres");
         return Usuario.hashClave(new String(this.campoClave.getPassword()));
     }
     
