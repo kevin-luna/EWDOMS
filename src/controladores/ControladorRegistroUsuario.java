@@ -6,6 +6,7 @@ package controladores;
 
 import dao.DAOUsuario;
 import dao.StatusConsulta;
+import excepciones.EntradaInvalida;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -17,8 +18,8 @@ import vistas.FormUsuario;
  *
  * @author kevin
  */
-public class ControladorRegistroUsuario implements ActionListener{
-    
+public class ControladorRegistroUsuario implements ActionListener {
+
     private FormUsuario menuRegistro;
     private DAOUsuario daoUsuario;
 
@@ -29,16 +30,20 @@ public class ControladorRegistroUsuario implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JButton boton = (JButton)e.getSource();
-        switch(boton.getName()){
+        JButton boton = (JButton) e.getSource();
+        switch (boton.getName()) {
             case "guardar":
-                Usuario usuario = menuRegistro.obtenerUsuario();
-                StatusConsulta status = daoUsuario.insertar(usuario);
-                if(status.getCodigo()==1){
-                    JOptionPane.showMessageDialog(menuRegistro, status.getMensaje(), "Usuario agregado exitosamente", status.getCodigo());
-                    menuRegistro.dispose();
-                }else{
-                    JOptionPane.showMessageDialog(menuRegistro, status.getMensaje(), "Error al agregar usuario", status.getCodigo());
+                try {
+                    Usuario usuario = menuRegistro.obtenerUsuario();
+                    StatusConsulta status = daoUsuario.insertar(usuario);
+                    if (status.getCodigo() == 1) {
+                        JOptionPane.showMessageDialog(menuRegistro, status.getMensaje(), "Usuario agregado exitosamente", status.getCodigo());
+                        menuRegistro.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(menuRegistro, status.getMensaje(), "Error al agregar usuario", status.getCodigo());
+                    }
+                }catch(EntradaInvalida ex){
+                    JOptionPane.showMessageDialog(menuRegistro, ex.getMessage(), "Entrada invalida", JOptionPane.WARNING_MESSAGE);
                 }
                 break;
             case "cancelar":
@@ -46,5 +51,5 @@ public class ControladorRegistroUsuario implements ActionListener{
                 break;
         }
     }
-    
+
 }

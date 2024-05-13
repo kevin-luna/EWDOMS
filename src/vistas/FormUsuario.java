@@ -5,6 +5,7 @@
 package vistas;
 
 import controladores.ControladorRegistroUsuario;
+import excepciones.EntradaInvalida;
 import modelos.Usuario;
 
 /**
@@ -20,8 +21,13 @@ public class FormUsuario extends javax.swing.JFrame {
         initComponents();
     }
     
-    public Usuario obtenerUsuario(){
-        return new Usuario(this.campoNombre.getText(),new String(this.campoClave.getPassword()),this.comboAdministrador.getSelectedIndex());
+    public Usuario obtenerUsuario() throws EntradaInvalida{
+        String nombreUsuario = campoNombre.getText();
+        String clave = new String(campoClave.getPassword());
+        if(nombreUsuario.length()>=255)throw new EntradaInvalida("La longitud del nombre no puede ser mayor a 255 caracteres.");
+        if(nombreUsuario.contains(" "))throw new EntradaInvalida("El nombre de usuario no puede contener espacios en blanco.");
+        if(clave.length()>=255)throw new EntradaInvalida("La longitud de la clave no puede ser mayor a 255 caracteres.");
+        return new Usuario(nombreUsuario,clave,this.comboAdministrador.getSelectedIndex());
     }
     
     public void agregarEventos(ControladorRegistroUsuario controlador){
