@@ -5,6 +5,7 @@
 package controladores;
 
 import dao.DAOReceta;
+import excepciones.EntradaInvalida;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
@@ -23,27 +24,33 @@ public class ControladorRegistroReceta implements ActionListener {
         daoReceta = new DAOReceta();
     }
 
-
     public void guardarReceta() {
-        long idReceta = daoReceta.insertar(menuRegistro.obtenerReceta());
-        if (idReceta != -1) {
-            JOptionPane.showMessageDialog(menuRegistro, "Se registró la receta correctamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-            menuRegistro.dispose();
-        } else {
-            JOptionPane.showMessageDialog(menuRegistro, "Ocurrió un error al registrar la receta.", "Error de registro", JOptionPane.ERROR_MESSAGE);
+        try {
+            long idReceta = daoReceta.insertar(menuRegistro.obtenerReceta());
+            if (idReceta != -1) {
+                JOptionPane.showMessageDialog(menuRegistro, "Se registró la receta correctamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                menuRegistro.dispose();
+            } else {
+                JOptionPane.showMessageDialog(menuRegistro, "Ocurrió un error al registrar la receta.", "Error de registro", JOptionPane.ERROR_MESSAGE);
+            }
+        }catch(EntradaInvalida ex){
+            JOptionPane.showMessageDialog(menuRegistro, ex.getMessage(), "Entrada inválida", JOptionPane.WARNING_MESSAGE);
         }
     }
-    
+
     public void actualizarReceta() {
-        Receta receta = menuRegistro.obtenerReceta();
-        boolean status = daoReceta.actualizar(receta.getId(), receta);
-        if (status) {
-            JOptionPane.showMessageDialog(menuRegistro, "Se actualizó la receta correctamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(menuRegistro, "No se pudo actualizar la receta.", "Error al actualizar", JOptionPane.ERROR_MESSAGE);
+        try {
+            Receta receta = menuRegistro.obtenerReceta();
+            boolean status = daoReceta.actualizar(receta.getId(), receta);
+            if (status) {
+                JOptionPane.showMessageDialog(menuRegistro, "Se actualizó la receta correctamente.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(menuRegistro, "No se pudo actualizar la receta.", "Error al actualizar", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (EntradaInvalida ex) {
+            JOptionPane.showMessageDialog(menuRegistro, ex.getMessage(), "Entrada inválida", JOptionPane.WARNING_MESSAGE);
         }
     }
-    
 
     public void cancelar() {
         menuRegistro.limpiar();

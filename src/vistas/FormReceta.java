@@ -5,6 +5,7 @@
 package vistas;
 
 import controladores.ControladorRegistroReceta;
+import excepciones.EntradaInvalida;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -66,7 +67,13 @@ public class FormReceta extends javax.swing.JFrame {
     }
 
 
-    public Receta obtenerReceta() {
+    public Receta obtenerReceta() throws EntradaInvalida{
+        if(obtenerDiagnostico().length()>=255) throw new EntradaInvalida("La sección de diagnóstico no puede ser mayor a 255 caracteres.");
+        if(obtenerSintomas().length()>=255) throw new EntradaInvalida("La sección de síntomas no puede ser mayor a 255 caracteres.");
+        if(obtenerRecomendaciones().length()>=255) throw new EntradaInvalida("La sección de recomendaciones no puede ser mayor a 255 caracteres.");
+        if(obtenerMedicamentos().length()>=255) throw new EntradaInvalida("La sección de medicamentos no puede ser mayor a 255 caracteres.");
+        
+        
         this.receta.setId_consulta(obtenerIdConsulta());
         this.receta.setDiagnostico(obtenerDiagnostico());
         this.receta.setSintomas(obtenerSintomas());
