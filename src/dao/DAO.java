@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 public interface DAO<K,T> {
     

@@ -6,7 +6,7 @@ package modelos;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 public class Medico {
     private long id;

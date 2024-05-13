@@ -6,7 +6,7 @@ package controladores;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 import dao.DAOPaciente;
 import excepciones.EntradaInvalida;

@@ -15,7 +15,7 @@ import modelos.Usuario;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 public class DAOUsuario {
     private Conector conector;
@@ -96,7 +96,6 @@ public class DAOUsuario {
     }
     
     public StatusConsulta insertar(Usuario usuario){
-        System.out.println(usuario.toString());
         try {
             Connection conexion = conector.iniciar();
             String sql = "{call InsertarUsuario(?,?,?)}";

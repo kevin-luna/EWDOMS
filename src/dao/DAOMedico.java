@@ -14,7 +14,7 @@ import modelos.Medico;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 public class DAOMedico implements DAO<Long, Medico>{
 

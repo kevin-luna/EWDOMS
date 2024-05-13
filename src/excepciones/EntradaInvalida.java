@@ -6,7 +6,7 @@ package excepciones;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 public class EntradaInvalida extends Exception{
     public EntradaInvalida(String mensaje){

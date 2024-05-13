@@ -16,7 +16,7 @@ import vistas.FormUsuario;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 public class ControladorRegistroUsuario implements ActionListener {
 

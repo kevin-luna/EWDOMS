@@ -6,7 +6,7 @@ package dao;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 public class StatusConsulta {
     private int codigo;

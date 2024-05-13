@@ -9,7 +9,7 @@ import modelos.Medico;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 public class Test {
     public static void main(String[] args) {

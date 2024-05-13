@@ -129,7 +129,6 @@ public class DAOConsultaMedica implements DAO<Long, ConsultaMedica> {
 
     @Override
     public boolean actualizar(Long id, ConsultaMedica consultaMedica) {
-        System.out.println(consultaMedica.toString());;
         Connection conexion = conector.iniciar();
         if (conexion != null) {
             String sql = "UPDATE consulta_medica SET id_paciente=?, id_medico=?, fecha=? WHERE id=?";

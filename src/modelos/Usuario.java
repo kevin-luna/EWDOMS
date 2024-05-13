@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 public class Usuario {
 

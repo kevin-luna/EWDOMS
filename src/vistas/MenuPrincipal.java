@@ -23,7 +23,7 @@ import modelos.Usuario;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 

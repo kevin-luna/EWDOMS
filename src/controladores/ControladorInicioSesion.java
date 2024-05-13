@@ -20,7 +20,7 @@ import vistas.MenuPrincipal;
 
 /**
  *
- * @author kevin
+ * @author 
  */
 public class ControladorInicioSesion implements ActionListener {
 
