@@ -36,7 +36,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal(boolean modoAdministrador) {
         initComponents();
         if(!modoAdministrador){
-            pestanasVistas.remove(5);
+            pestanasVistas.remove(4);
         }
         this.modeloTablaRecetas = (DefaultTableModel) this.tablaRecetas.getModel();
         this.modeloTablaUsuarios = (DefaultTableModel)this.tablaUsuarios.getModel();

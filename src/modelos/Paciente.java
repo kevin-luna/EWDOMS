@@ -19,6 +19,10 @@ public class Paciente {
     private String direccion;
     private String telefono;
     private String correo_electronico;
+    
+    public Paciente(){
+        
+    }
 
     public Paciente(long id, String nombre, String tipo_sangre, String sexo, float altura, float peso, String fecha_nacimiento, String direccion, String telefono, String correo_electronico) {
         this.id = id;

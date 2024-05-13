@@ -5,6 +5,7 @@
 package vistas;
 
 import controladores.ControladorRegistroPaciente;
+import excepciones.EntradaInvalida;
 import modelos.Paciente;
 
 /**
@@ -19,6 +20,7 @@ public class FormPaciente extends javax.swing.JFrame {
      */
     public FormPaciente() {
         initComponents();
+        paciente = new Paciente();
     }
     
     public void cargarPaciente(Paciente paciente){
@@ -34,7 +36,45 @@ public class FormPaciente extends javax.swing.JFrame {
         comboSangre.setSelectedItem(paciente.getTipoSangre());
     }
     
-    public Paciente obtenerPaciente(){
+    public Paciente obtenerPaciente() throws EntradaInvalida{
+        if (!obtenerNombre().matches("^[a-zA-Z]+(?:\\s[a-zA-Z]+)*$")) {
+            throw new EntradaInvalida("Nombre no válido.");
+        }
+        
+        if (obtenerNombre().length()>=255) {
+            throw new EntradaInvalida("La longitud del nombre no puede ser mayor a 255 caracteres.");
+        }
+        
+        if (!Float.toString(obtenerAltura()).matches("^\\d{1,2}(\\.\\d+)?$")) {
+            throw new EntradaInvalida("Altura no válida.");
+        }
+        
+        if (!Float.toString(obtenerPeso()).matches("^\\d+(\\.\\d+)?$")) {
+            throw new EntradaInvalida("Peso no válido.");
+        }
+        
+        if (obtenerDireccion().length()>=255) {
+            throw new EntradaInvalida("La dirección no puede exceder los 255 caracteres de longitud.");
+        }
+        
+        if (!obtenerTelefono().matches("^\\d{10}$")) {
+            throw new EntradaInvalida("Teléfono no válido.\n El teléfono debe contener 10 dígitos.");
+        }
+        
+        if (!obtenerCorreo().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+            throw new EntradaInvalida("Correo electrónico no válido.");
+        }
+        
+        if (obtenerCorreo().length()>=255) {
+            throw new EntradaInvalida("El correo electrónico no puede exceder los 254 caracteres de longitud.");
+        }
+        
+        
+        if (!obtenerFechaNacimiento().matches("^\\d{4}[-/]((0[1-9])|(1[0-2]))[-/]((0[1-9])|([1-2][0-9])|(3[0-1]))$")) {
+            throw new EntradaInvalida("Fecha no válida.\nLa fecha debe estar en formato AAAA/MM/DD o AAAA-MM-DD.");
+        }
+        
+        
         paciente.setNombre(obtenerNombre());
         paciente.setAltura(obtenerAltura());
         paciente.setPeso(obtenerPeso());
