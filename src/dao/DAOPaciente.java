@@ -132,7 +132,7 @@ public class DAOPaciente implements DAO<Long, Paciente> {
         if (conexion != null) {
             String sql = "INSERT INTO paciente (nombre, tipo_sangre, sexo, altura, peso, fecha_nacimiento, direccion, telefono, correo_electronico) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try {
-                PreparedStatement consulta = conexion.prepareStatement(sql);
+                PreparedStatement consulta = conexion.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
                 consulta.setString(1, paciente.getNombre());
                 consulta.setString(2, paciente.getTipoSangre());
                 consulta.setString(3, paciente.getSexo());
